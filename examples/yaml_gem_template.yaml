@@ -1,0 +1,110 @@
+'%{gem_name}':
+  'bin':
+    '%{gem_name}.stop': ~
+  'development': {}
+  'documentation': {}
+  'lib':
+    '%{require_name}':
+      'version.rb.stop.erb': |
+        # encoding: utf-8
+        
+        begin
+          require 'rubygems/version' # newer rubygems use this
+        rescue LoadError
+          require 'gem/version' # older rubygems use this
+        end
+        
+        module <%= namespace %>
+          Version = Gem::Version.new(<%= version.to_s.inspect %>)
+        end
+    '%{require_name}.rb.stop.erb': |
+      # encoding: utf-8
+      
+      
+      
+      require '<%= require_name %>/version'
+      
+      
+      
+      # <%= namespace.chomp %>
+      <%= description.gsub(/\n*\z/, '').gsub(/^/, '# ')+"\n" %>
+      module <%= namespace %>
+      end
+  '%{gem_name}.gemspec.stop.erb': |
+      # encoding: utf-8
+      
+      Gem::Specification.new do |s|
+        s.name                      = <%= gem_name.inspect %>
+        s.version                   = <%= version.to_s.inspect %>
+        s.authors                   = <%= author.inspect %>
+        s.description               = <<-DESCRIPTION.gsub(/^    /, '').chomp
+      <%= description && description.gsub(/^/,'    ') %>
+        DESCRIPTION
+        s.summary                   = <<-SUMMARY.gsub(/^    /, '').chomp
+      <%= summary && summary.gsub(/^/,'    ') %>
+        SUMMARY
+        s.email                     = <%= email.inspect %>
+
+        s.files                     =
+          Dir['bin/**/*'] +
+          Dir['lib/**/*'] +
+          Dir['rake/**/*'] +
+          Dir['test/**/*'] +
+          Dir['*.gemspec'] +
+          %w[
+            Rakefile
+            README.markdown
+          ]
+        if File.directory?('bin') then
+          executables = Dir.chdir('bin') { Dir.glob('**/*').select { |f| File.executable?(f) } }
+          s.executables = executables unless executables.empty?
+        end
+
+        s.required_rubygems_version = Gem::Requirement.new("> 1.3.1")
+        s.rubygems_version          = "1.3.1"
+        s.specification_version     = 3
+      end
+  'Rakefile.stop': |
+    $LOAD_PATH.unshift(File.expand_path('../rake/lib', __FILE__))
+    Dir.glob(File.expand_path('../rake/tasks/**/*.{rake,task,rb}', __FILE__)) do |task_file|
+      begin
+        import task_file
+      rescue LoadError => e
+        warn "Failed to load task file #{task_file}"
+        warn "  #{e.class} #{e.message}"
+        warn "  #{e.backtrace.first}"
+      end
+    end
+  'README_DIRECTORIES.stop': |
+    This readme informs you about the purpose of the directories
+    
+    PROJECT/bin:            Executable files
+    PROJECT/documentation:  Prosa documentation of your project
+    PROJECT/development:    Ideas and other things relevant for developing
+    PROJECT/lib:            Your ruby library files
+    PROJECT/rake/lib:       Libraries that are not part of your library, but used by your rake tasks
+    PROJECT/rake/tasks:     Your rake tasks, using either .rb, .task or .rake as suffix
+    PROJECT/test:           The tests for your library
+  'README.markdown.stop.erb': |
+    README
+    ======
+    
+    
+    Summary
+    -------
+    <%= summary %>
+    
+    
+    Installation
+    ------------
+    `gem install <%= gem_name %>`
+    
+    
+    Usage
+    -----
+    
+    
+    Description
+    -----------
+    <%= description %>
+  'test': {}

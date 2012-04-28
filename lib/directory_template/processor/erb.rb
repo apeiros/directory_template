@@ -1,0 +1,18 @@
+# encoding: utf-8
+
+
+
+require 'directory_template/erb_template'
+
+
+
+class DirectoryTemplate
+  class Processor
+
+    # The ERB Processor treats the file-content as ERB template.
+    Erb = Processor.new('*.erb', 'ERB Template Processor') do |data|
+      data.content = ErbTemplate.replace(data.content, data.content_variables)
+      data.chomp_suffix!
+    end
+  end
+end

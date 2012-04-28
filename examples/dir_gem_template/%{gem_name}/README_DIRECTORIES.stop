@@ -1,0 +1,9 @@
+This readme informs you about the purpose of the directories
+
+PROJECT/bin:            Executable files
+PROJECT/documentation:  Prosa documentation of your project
+PROJECT/development:    Ideas and other things relevant for developing
+PROJECT/lib:            Your ruby library files
+PROJECT/rake/lib:       Libraries that are not part of your library, but used by your rake tasks
+PROJECT/rake/tasks:     Your rake tasks, using either .rb, .task or .rake as suffix
+PROJECT/test:           The tests for your library

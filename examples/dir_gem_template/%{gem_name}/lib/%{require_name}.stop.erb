@@ -1,0 +1,12 @@
+# encoding: utf-8
+
+
+
+require '<%= require_name %>/version'
+
+
+
+# <%= namespace.chomp %>
+<%= description.gsub(/\n*\z/, '').gsub(/^/, '# ')+"\n" %>
+module <%= namespace %>
+end

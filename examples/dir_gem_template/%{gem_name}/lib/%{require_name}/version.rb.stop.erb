@@ -1,0 +1,11 @@
+# encoding: utf-8
+
+begin
+  require 'rubygems/version' # newer rubygems use this
+rescue LoadError
+  require 'gem/version' # older rubygems use this
+end
+
+module <%= namespace %>
+  Version = Gem::Version.new(<%= version.to_s.inspect %>)
+end
