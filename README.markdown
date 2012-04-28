@@ -16,7 +16,8 @@ Usage
 -----
 
 Create a template from an existing structure and materialize it (create directories &
-files).
+files):
+
     require 'directory_template/register_all' # load all processors
     variables = {
       namespace:    'Namespace',
@@ -30,6 +31,7 @@ files).
     template.materialize('new_project', variables: variables)
 
 Create a template from a YAML file:
+
     require 'directory_template/register_all' # load all processors
     variables = {
       namespace:    'Namespace',
