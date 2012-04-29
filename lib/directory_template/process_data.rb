@@ -44,7 +44,7 @@ class DirectoryTemplate
     def initialize(directory_template, path, content, env)
       @directory_template = directory_template
       @content            = content
-      @variables          = env[:variables]
+      @variables          = env[:variables] || {}
       @path_variables     = @variables.merge(env[:path_variables] || {})
       @content_variables  = @variables.merge(env[:content_variables] || {})
       self.path           = path
