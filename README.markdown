@@ -18,7 +18,7 @@ Usage
 Create a template from an existing structure and materialize it (create directories &
 files):
 
-    require 'directory_template/register_all' # load all processors
+    require 'directory_template'
     variables = {
       namespace:    'Namespace',
       version:      '1.2.3',
@@ -32,7 +32,7 @@ files):
 
 Create a template from a YAML file:
 
-    require 'directory_template/register_all' # load all processors
+    require 'directory_template'
     variables = {
       namespace:    'Namespace',
       version:      '1.2.3',
@@ -41,7 +41,7 @@ Create a template from a YAML file:
       description:  "The description",
       summary:      "The summary"
     }
-    template = DirectoryTemplate.directory('examples/yaml_gem_template.yaml')
+    template = DirectoryTemplate.yaml_file('examples/yaml_gem_template.yaml')
     template.materialize('new_project', variables: variables)
 
 

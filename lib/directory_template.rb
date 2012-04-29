@@ -19,9 +19,7 @@ require 'directory_template/version'
 #             future-proofness.
 class DirectoryTemplate
   # All registered processors
-  Processors = [
-    Processor.new('*.stop', 'Terminate processing queue', 'After .stop, no processor will be run anymore') { |data| data.chomp_suffix!; throw :stop_processing }
-  ]
+  Processors = []
 
   # The standard processor for file- and directory-paths. It simply uses String#% style
   # keyword replacement. I.e., "%\{key}" is replaced by the variable value passed with :key.
@@ -50,6 +48,8 @@ class DirectoryTemplate
   def self.register(processor)
     Processors << processor
   end
+  Processor.register(:stop, '*.stop', 'Terminate processing queue', 'After .stop, no processor will be run anymore') { |data| data.chomp_suffix!; throw :stop_processing }
+  Processor.register_all
 
   # Create a DirectoryTemplate from an existing directory structure.
   def self.directory(template_path, options={})

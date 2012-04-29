@@ -5,6 +5,23 @@ class DirectoryTemplate
   # The definition of a processor
   class Processor
 
+    # Searches for all processors and registers them
+    def self.register_all
+      $LOAD_PATH.each do |path|
+        Dir.glob(File.join(path, 'directory_template', 'processor', '**', '*.rb')) do |processor|
+          require processor
+        end
+      end
+    end
+
+    # Creates a Processor and registers it
+    def self.register(*arguments, &block)
+      processor = new(*arguments, &block)
+      DirectoryTemplate.register(processor)
+
+      processor
+    end
+
     # The pattern matching proc used to figure whether the processor applies to a
     # ProcessData or not.
     attr_reader :pattern
@@ -33,7 +50,9 @@ class DirectoryTemplate
     #
     # @param [#call] execute
     #   The implementation of the processor.
-    def initialize(pattern, name, description=nil, &execute)
+    def initialize(id, pattern, name=nil, description=nil, &execute)
+      raise ArgumentError, "ID must be a Symbol" unless id.is_a?(Symbol)
+      @id             = id
       @pattern_source = pattern
       @pattern        = case pattern
         when String then proc { |data| File.fnmatch?(pattern, data.path) }
