@@ -83,5 +83,11 @@ class DirectoryTemplate
 
       process_data
     end
+
+    def require(lib)
+      super(lib)
+    rescue LoadError
+      raise "The #{@name || @id} processor requires #{lib} in order to work"
+    end
   end
 end
