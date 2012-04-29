@@ -7,7 +7,6 @@
   filename.
 * Ponder whether a processor can be ran more than once on a file.
 * Figure how to detect an infinite processing loop
-* Add a .html.markdown processor
 * Add a .pdf.html processor
 * Add a .{png,svg,pdf}.dot processor
 * Improve API documentation
