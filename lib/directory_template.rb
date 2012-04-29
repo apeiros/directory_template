@@ -85,16 +85,23 @@ class DirectoryTemplate
     return dirs, files
   end
 
+  # Create a DirectoryTemplate from a nested hash structure.
+  # The hash should just be a recursive hash of strings. Use an empty hash to indicate
+  # an empty directory. Leaf-strings are considered to be the content of a file. Use nil
+  # to indicate an empty file.
+  def self.from_hash(hash, options=nil)
+    dirs, files = convert_recursive_structure(hash)
+    data        = {:directories => dirs, :files => files}
+
+    new(data, options)
+  end
+
   # Create a DirectoryTemplate from a YAML file.
   # The yaml should just be a recursive hash of strings. Use an empty hash to indicate
   # an empty directory. Leaf-strings are considered to be the content of a file. Use nil
   # to indicate an empty file.
   def self.yaml_file(path, options=nil)
-    raw         = YAML.load_file(path)
-    dirs, files = convert_recursive_structure(raw)
-    data        = {:directories => dirs, :files => files}
-
-    new(data, options)
+    from_hash(YAML.load_file(path), options)
   end
 
   # Meta information can be used by processors. There's no requirements on them, except
