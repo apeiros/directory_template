@@ -23,23 +23,6 @@ class DirectoryTemplate
   # All registered processors
   Processors = []
 
-  # The standard processor for file- and directory-paths. It simply uses String#% style
-  # keyword replacement. I.e., `%{key}` is replaced by the variable value passed with
-  # :key.
-  StandardPathProcessor = proc { |data|
-    data.path = data.path % data.path_variables if data.path_variables
-  }
-
-  # The default options used by DirectoryTemplate
-  DefaultOptions  = {
-    :verbose        => false,
-    :silent         => false,
-    :out            => $stdout,
-    :processors     => Processors,
-    :path_processor => StandardPathProcessor,
-    :meta           => {},
-  }
-
   # You can register custom processors for templates. They're triggered based on the
   # pattern.
   # A processor can change the ProcessData struct passed to it, which will be reflected
@@ -51,8 +34,19 @@ class DirectoryTemplate
   def self.register(processor)
     Processors << processor
   end
-  Processor.register(:stop, '*.stop', 'Terminate processing queue', 'After .stop, no processor will be run anymore') { |data| data.chomp_suffix!; throw :stop_processing }
   Processor.register_all
+  StandardPathProcessor = Processor::Format
+
+  # The default options used by DirectoryTemplate
+  DefaultOptions  = {
+    :verbose        => false,
+    :silent         => false,
+    :out            => $stdout,
+    :processors     => Processors,
+    :path_processor => StandardPathProcessor,
+    :source         => '(unknown)',
+    :meta           => {},
+  }
 
   # Create a DirectoryTemplate from an existing directory structure.
   def self.directory(template_path, options={})
@@ -65,7 +59,7 @@ class DirectoryTemplate
       {:directories => directories, :files => filemap}
     }
 
-    new(data, options)
+    new(data, options.merge(:source => template_path))
   end
 
   # @private
@@ -103,8 +97,8 @@ class DirectoryTemplate
   # The yaml should just be a recursive hash of strings. Use an empty hash to indicate
   # an empty directory. Leaf-strings are considered to be the content of a file. Use nil
   # to indicate an empty file.
-  def self.yaml_file(path, options=nil)
-    from_hash(YAML.load_file(path), options)
+  def self.yaml_file(path, options={})
+    from_hash(YAML.load_file(path), options.merge(:source => template_path))
   end
 
   # Meta information can be used by processors. There's no requirements on them, except
@@ -155,6 +149,7 @@ class DirectoryTemplate
     options               = options ? DefaultOptions.merge(options) : DefaultOptions.dup
     @directories          = data[:directories] || []
     @files                = data[:files] || []
+    @source               = options.delete(:source)
     @meta                 = options.delete(:meta)
     @verbose              = options.delete(:verbose)
     @silent               = options.delete(:silent)
@@ -218,7 +213,7 @@ class DirectoryTemplate
   # @private
   # Preprocesses the given path
   def process_path(path, env)
-    ProcessData.new(self, path, nil, env).tap(&@path_processor).path
+    @path_processor.call(ProcessData.new(self, path, nil, env)).path
   end
 
   # @private
@@ -284,5 +279,11 @@ class DirectoryTemplate
   # DirectoryTemplate#debug is true
   def debug
     @out.puts yield if @verbose
+  end
+
+  # @private
+  # See Object#inspect
+  def inspect
+    sprintf "#<%s:0x%x source=%p>", self.class, object_id<<1, @source
   end
 end

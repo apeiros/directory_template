@@ -5,6 +5,9 @@ class DirectoryTemplate
   # The definition of a processor
   class Processor
 
+    # A matcher-proc to never match
+    Never = proc { |data| false }
+
     # Searches for all processors and registers them
     def self.register_all
       $LOAD_PATH.each do |path|
@@ -62,6 +65,7 @@ class DirectoryTemplate
         when String then proc { |data| File.fnmatch?(pattern, data.path) }
         when Regexp then proc { |data| pattern =~ data.path }
         when Proc   then pattern
+        when nil    then Never
         else
           raise ArgumentError, "Expected a String, Regexp or Proc as pattern, but got #{pattern.class}"
       end
