@@ -9,4 +9,3 @@
 * Figure how to detect an infinite processing loop
 * Add a .pdf.html processor
 * Add a .{png,svg,pdf}.dot processor
-* Improve API documentation
