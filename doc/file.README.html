@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  if (relpath != '') relpath += '/';
+  framesUrl = "frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -26,51 +28,68 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="_index.html" title="Index">Index</a> &raquo; 
+    <a href="_index.html">Index</a> &raquo; 
     <span class="title">File: README</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
-    <div id="content"><div id='filecontents'><h1>README</h1>
 
-<h2>Summary</h2>
+    <div id="content"><div id='filecontents'><h1 id="readme">README</h1>
 
-<p>Create directories from templates, optionally preprocessing paths and contents.</p>
+<h2 id="summary">Summary</h2>
+<p>Lets you generate directory structures from a template, optionally processing paths
+(variables in the path) and contents (e.g., render ERB templates).</p>
 
-<h2>Installation</h2>
+<h2 id="features">Features</h2>
 
+<ul>
+  <li>Generate directories and files</li>
+  <li>Use a directory structure as template, or store the template in a YAML file</li>
+  <li>Interpolate variables in directory- and filenames</li>
+  <li>Render ERB and Markdown templates</li>
+  <li>Write &amp; use your own processors</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
 <p><code>gem install directory_template</code></p>
 
-<h2>Usage</h2>
+<h2 id="usage">Usage</h2>
+
+<p>The examples given below are working examples. The templates are part of the gem and can
+be found in the directory ‘examples’.</p>
 
 <p>Create a template from an existing structure and materialize it (create directories &amp;
-files).</p>
+files):</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>directory_template/register_all</span><span class='tstring_end'>'</span></span> <span class='comment'># load all processors
-</span><span class='id identifier rubyid_variables'>variables</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>directory_template</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_variables'>variables</span> <span class='op'>=</span> <span class='lbrace'>{</span>
   <span class='label'>namespace:</span>    <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Namespace</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>version:</span>      <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>1.2.3</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>gem_name:</span>     <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>gem-name</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
@@ -84,8 +103,8 @@ files).</p>
 
 <p>Create a template from a YAML file:</p>
 
-<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>directory_template/register_all</span><span class='tstring_end'>'</span></span> <span class='comment'># load all processors
-</span><span class='id identifier rubyid_variables'>variables</span> <span class='op'>=</span> <span class='lbrace'>{</span>
+<pre class="code ruby"><code><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>directory_template</span><span class='tstring_end'>'</span></span>
+<span class='id identifier rubyid_variables'>variables</span> <span class='op'>=</span> <span class='lbrace'>{</span>
   <span class='label'>namespace:</span>    <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Namespace</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>version:</span>      <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>1.2.3</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='label'>gem_name:</span>     <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>gem-name</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
@@ -93,23 +112,38 @@ files).</p>
   <span class='label'>description:</span>  <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The description</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
   <span class='label'>summary:</span>      <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The summary</span><span class='tstring_end'>&quot;</span></span>
 <span class='rbrace'>}</span>
-<span class='id identifier rubyid_template'>template</span> <span class='op'>=</span> <span class='const'>DirectoryTemplate</span><span class='period'>.</span><span class='id identifier rubyid_directory'>directory</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>examples/yaml_gem_template.yaml</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
+<span class='id identifier rubyid_template'>template</span> <span class='op'>=</span> <span class='const'>DirectoryTemplate</span><span class='period'>.</span><span class='id identifier rubyid_yaml_file'>yaml_file</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>examples/yaml_gem_template.yaml</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span>
 <span class='id identifier rubyid_template'>template</span><span class='period'>.</span><span class='id identifier rubyid_materialize'>materialize</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>new_project</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='label'>variables:</span> <span class='id identifier rubyid_variables'>variables</span><span class='rparen'>)</span>
 </code></pre>
 
-<h2>Description</h2>
+<h2 id="description">Description</h2>
+<p>DirectoryTemplate is a library which lets you generate directory structures and files
+from a template structure. The template structure can be a real directory structure on
+the filesystem, or it can be stored in a yaml file. Take a look at the examples directory
+in the gem to get an idea, how a template can look.</p>
 
-<p>Create directories from templates.
-Existing directory structures, yaml files and ruby datastructures can all serve as
-sources of a template.
-Can preprocess pathnames and content.
-Path- and ContentProcessors are exchangeable.</p>
+<p>When generating a new directory structure from a template, DirectoryTemplate will process
+the pathname of each directory and file using the DirectoryTemplate#path_processor.
+It will also process the contents of each file with all processors that apply to a given
+file.
+The standard path processor allows you to use <code>%{variables}</code> in pathnames. The gem comes
+with a .erb (renders ERB templates) and .html.markdown processor (renders markdown to
+html).
+You can use the existing processors or define your own ones.</p>
+
+<p>Also take a look at the <a href="file.ContentProcessors.html" title="Content Processors Guide">Content Processors Guide</a>
+and the <a href="file.ContentProcessors.html" title="Path Processors Guide">Path Processors Guide</a>.</p>
+
+<h2 id="license">License</h2>
+
+<p>You can use this code under the <a href="file.LICENSE.html" title="BSD-2-Clause License">BSD-2-Clause License</a>, free of charge.
+If you need a different license, please ask the author.</p>
 </div></div>
-    
+
     <div id="footer">
-  Generated on Sat Apr 28 23:47:21 2012 by 
+  Generated on Wed May  2 23:00:09 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.8.1 (ruby-1.9.3).
 </div>
 
   </body>

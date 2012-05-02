@@ -6,7 +6,7 @@
 <title>
   Class: DirectoryTemplate::Processor
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../';
+  framesUrl = "../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../_index.html">Index (P)</a> &raquo; 
+    <a href="../_index.html">Index (P)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../DirectoryTemplate.html" title="DirectoryTemplate (class)">DirectoryTemplate</a></span></span>
      &raquo; 
     <span class="title">Processor</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: DirectoryTemplate::Processor
   
   
@@ -88,7 +95,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/directory_template/processor.rb<span class="defines">,<br />
-  lib/directory_template/processor/erb.rb</span>
+  lib/directory_template/processor/erb.rb,<br /> lib/directory_template/processor/markdown.rb</span>
 </dd>
   
 </dl>
@@ -96,9 +103,7 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>
-The definition of a processor
-</p>
+    <p>The definition of a processor</p>
 
 
   </div>
@@ -114,9 +119,7 @@ The definition of a processor
         <dt id="Erb-constant" class="">Erb =
           <div class="docstring">
   <div class="discussion">
-    <p>
-The ERB Processor treats the file-content as ERB template.
-</p>
+    <p>The ERB Processor treats the file-content as ERB template.</p>
 
 
   </div>
@@ -126,8 +129,27 @@ The ERB Processor treats the file-content as ERB template.
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='const'>Processor</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*.erb</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ERB Template Processor</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span>
-  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='const'>ErbTemplate</span><span class='period'>.</span><span class='id identifier rubyid_replace'>replace</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content_variables'>content_variables</span><span class='rparen'>)</span>
+        <dd><pre class="code"><span class='const'>Processor</span><span class='period'>.</span><span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='symbol'>:erb</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*.erb</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>ERB Template Processor</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='const'>ErbTemplate</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_render'>render</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content_variables'>content_variables</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_chomp_suffix!'>chomp_suffix!</span>
+<span class='kw'>end</span></pre></dd>
+      
+        <dt id="Markdown-constant" class="">Markdown =
+          <div class="docstring">
+  <div class="discussion">
+    <p>The ERB Processor treats the file-content as ERB template.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='const'>Processor</span><span class='period'>.</span><span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='symbol'>:markdown_to_html</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*.html.markdown</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Markdown to HTML Template Processor</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span>
+  <span class='const'>Markdown</span><span class='period'>.</span><span class='id identifier rubyid_require'>require</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>kramdown</span><span class='tstring_end'>'</span></span>
+  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span> <span class='op'>=</span> <span class='const'>Kramdown</span><span class='op'>::</span><span class='const'>Document</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_content'>content</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_to_html'>to_html</span>
   <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_chomp_suffix!'>chomp_suffix!</span>
 <span class='kw'>end</span></pre></dd>
       
@@ -150,7 +172,10 @@ The ERB Processor treats the file-content as ERB template.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -159,9 +184,7 @@ The ERB Processor treats the file-content as ERB template.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-A human understandable description of the processor.
-</p>
+    <span class="summary_desc"><div class='inline'><p>A human understandable description of the processor.</p>
 </div></span>
   
 </li>
@@ -177,7 +200,10 @@ A human understandable description of the processor.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -186,9 +212,7 @@ A human understandable description of the processor.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-The implementation of the processor.
-</p>
+    <span class="summary_desc"><div class='inline'><p>The implementation of the processor.</p>
 </div></span>
   
 </li>
@@ -204,7 +228,10 @@ The implementation of the processor.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -213,9 +240,7 @@ The implementation of the processor.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-A human identifiable name.
-</p>
+    <span class="summary_desc"><div class='inline'><p>A human identifiable name.</p>
 </div></span>
   
 </li>
@@ -231,7 +256,10 @@ A human identifiable name.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -240,10 +268,8 @@ A human identifiable name.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-The pattern matching proc used to figure whether the processor applies to a
-ProcessData or not.
-</p>
+    <span class="summary_desc"><div class='inline'><p>The pattern matching proc used to figure whether the processor applies to a
+ProcessData or not.</p>
 </div></span>
   
 </li>
@@ -259,7 +285,10 @@ ProcessData or not.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -268,9 +297,7 @@ ProcessData or not.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-The source used to create the pattern proc.
-</p>
+    <span class="summary_desc"><div class='inline'><p>The source used to create the pattern proc.</p>
 </div></span>
   
 </li>
@@ -283,7 +310,7 @@ The source used to create the pattern proc.
 
   
     <h2>
-      Instance Method Summary
+      Class Method Summary
       <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
     </h2>
 
@@ -292,7 +319,7 @@ The source used to create the pattern proc.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#%3D%3D%3D-instance_method" title="#=== (instance method)">- (Object) <strong>===</strong>(process_data) </a>
+      <a href="#register-class_method" title="register (class method)">+ (Object) <strong>register</strong>(*arguments, &amp;block) </a>
     
 
     
@@ -303,11 +330,65 @@ The source used to create the pattern proc.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Whether the processor is suitable for the given ProcessData.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Creates a Processor and registers it.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#register_all-class_method" title="register_all (class method)">+ (Object) <strong>register_all</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Searches for all processors and registers them.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+    <h2>
+      Instance Method Summary
+      <small>(<a href="#" class="summary_toggle">collapse</a>)</small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#%3D%3D%3D-instance_method" title="#=== (instance method)">- (Boolean) <strong>===</strong>(process_data) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Whether the processor is suitable for the given ProcessData.</p>
 </div></span>
   
 </li>
@@ -327,11 +408,10 @@ Whether the processor is suitable for the given ProcessData.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Apply the processor on a ProcessData instance.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Apply the processor on a ProcessData instance.</p>
 </div></span>
   
 </li>
@@ -340,11 +420,12 @@ Apply the processor on a ProcessData instance.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Processor) <strong>initialize</strong>(pattern, name, description = nil, &amp;execute) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Processor) <strong>initialize</strong>(id, pattern, name = nil, description = nil, &amp;execute) </a>
     
 
     
   </span>
+  
   
     <span class="note title constructor">constructor</span>
   
@@ -355,9 +436,30 @@ Apply the processor on a ProcessData instance.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-A new instance of Processor.
-</p>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Processor.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#require-instance_method" title="#require (instance method)">- (Object) <strong>require</strong>(lib) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Invokes Kernel#require, and fails with a custom error message.</p>
 </div></span>
   
 </li>
@@ -370,24 +472,39 @@ A new instance of Processor.
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <p class="signature first" id="initialize-instance_method">
+  <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="DirectoryTemplate::Processor (class)">Processor</a></span></tt>) <strong>initialize</strong>(pattern, name, description = nil, &amp;execute) 
+    - (<tt><span class='object_link'><a href="" title="DirectoryTemplate::Processor (class)">Processor</a></span></tt>) <strong>initialize</strong>(id, pattern, name = nil, description = nil, &amp;execute) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-A new instance of Processor
-</p>
+    <p>A new instance of Processor</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
+  
+    <li>
+      
+        <span class='name'>id</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>A (in the set of Processors) unique id</p>
+</div>
+      
+    </li>
   
     <li>
       
@@ -399,9 +516,7 @@ A new instance of Processor
       
       
         &mdash;
-        <div class='inline'><p>
-A glob-like-pattern, e.g. &#8217;*.html.haml&#8217;
-</p>
+        <div class='inline'><p>A glob-like-pattern, e.g. ‘*.html.haml’</p>
 </div>
       
     </li>
@@ -414,11 +529,11 @@ A glob-like-pattern, e.g. &#8217;*.html.haml&#8217;
         <span class='type'>(<tt>String</tt>)</span>
       
       
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
       
         &mdash;
-        <div class='inline'><p>
-The name of the processor
-</p>
+        <div class='inline'><p>The name of the processor</p>
 </div>
       
     </li>
@@ -435,9 +550,7 @@ The name of the processor
       
       
         &mdash;
-        <div class='inline'><p>
-A description, what the processor does
-</p>
+        <div class='inline'><p>A description, what the processor does</p>
 </div>
       
     </li>
@@ -452,15 +565,26 @@ A description, what the processor does
       
       
         &mdash;
-        <div class='inline'><p>
-The implementation of the processor.
-</p>
+        <div class='inline'><p>The implementation of the processor</p>
 </div>
       
     </li>
   
 </ul>
 
+<p class="tag_title">Raises:</p>
+<ul class="raise">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>ArgumentError</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -468,24 +592,28 @@ The implementation of the processor.
       <pre class="lines">
 
 
-36
-37
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48</pre>
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 36</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 57</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_execute'>execute</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_id'>id</span><span class='comma'>,</span> <span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='id identifier rubyid_name'>name</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_description'>description</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_execute'>execute</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='const'>ArgumentError</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ID must be a Symbol</span><span class='tstring_end'>&quot;</span></span> <span class='kw'>unless</span> <span class='id identifier rubyid_id'>id</span><span class='period'>.</span><span class='id identifier rubyid_is_a?'>is_a?</span><span class='lparen'>(</span><span class='const'>Symbol</span><span class='rparen'>)</span>
+  <span class='ivar'>@id</span>             <span class='op'>=</span> <span class='id identifier rubyid_id'>id</span>
   <span class='ivar'>@pattern_source</span> <span class='op'>=</span> <span class='id identifier rubyid_pattern'>pattern</span>
   <span class='ivar'>@pattern</span>        <span class='op'>=</span> <span class='kw'>case</span> <span class='id identifier rubyid_pattern'>pattern</span>
     <span class='kw'>when</span> <span class='const'>String</span> <span class='kw'>then</span> <span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_fnmatch?'>fnmatch?</span><span class='lparen'>(</span><span class='id identifier rubyid_pattern'>pattern</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
@@ -512,17 +640,17 @@ The implementation of the processor.
       <span id=""></span>
       <span id="description-instance_method"></span>
       <div class="method_details first">
-  <p class="signature first" id="description-instance_method">
+  <h3 class="signature first" id="description-instance_method">
   
     - (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>description</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-A human understandable description of the processor
-</p>
+    <p>A human understandable description of the processor</p>
 
 
   </div>
@@ -536,12 +664,12 @@ A human understandable description of the processor
       <pre class="lines">
 
 
-20
-21
-22</pre>
+38
+39
+40</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 20</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 38</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_description'>description</span>
   <span class='ivar'>@description</span>
@@ -555,17 +683,17 @@ A human understandable description of the processor
       <span id=""></span>
       <span id="execute-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="execute-instance_method">
+  <h3 class="signature " id="execute-instance_method">
   
     - (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>execute</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-The implementation of the processor. I.e., the block passed to ::new.
-</p>
+    <p>The implementation of the processor. I.e., the block passed to ::new.</p>
 
 
   </div>
@@ -579,12 +707,12 @@ The implementation of the processor. I.e., the block passed to ::new.
       <pre class="lines">
 
 
-23
-24
-25</pre>
+41
+42
+43</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 23</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 41</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_execute'>execute</span>
   <span class='ivar'>@execute</span>
@@ -598,17 +726,17 @@ The implementation of the processor. I.e., the block passed to ::new.
       <span id=""></span>
       <span id="name-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="name-instance_method">
+  <h3 class="signature " id="name-instance_method">
   
     - (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>name</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-A human identifiable name
-</p>
+    <p>A human identifiable name</p>
 
 
   </div>
@@ -622,12 +750,12 @@ A human identifiable name
       <pre class="lines">
 
 
-17
-18
-19</pre>
+35
+36
+37</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 17</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 35</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_name'>name</span>
   <span class='ivar'>@name</span>
@@ -641,18 +769,18 @@ A human identifiable name
       <span id=""></span>
       <span id="pattern-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="pattern-instance_method">
+  <h3 class="signature " id="pattern-instance_method">
   
     - (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>pattern</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-The pattern matching proc used to figure whether the processor applies to a
-ProcessData or not.
-</p>
+    <p>The pattern matching proc used to figure whether the processor applies to a
+ProcessData or not.</p>
 
 
   </div>
@@ -666,12 +794,12 @@ ProcessData or not.
       <pre class="lines">
 
 
-10
-11
-12</pre>
+28
+29
+30</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 10</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 28</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pattern'>pattern</span>
   <span class='ivar'>@pattern</span>
@@ -685,18 +813,18 @@ ProcessData or not.
       <span id=""></span>
       <span id="pattern_source-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="pattern_source-instance_method">
+  <h3 class="signature " id="pattern_source-instance_method">
   
     - (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>pattern_source</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-The source used to create the pattern proc. I.e., the value passed to ::new
-as the pattern parameter.
-</p>
+    <p>The source used to create the pattern proc. I.e., the value passed to ::new as the
+pattern parameter.</p>
 
 
   </div>
@@ -710,12 +838,12 @@ as the pattern parameter.
       <pre class="lines">
 
 
-14
-15
-16</pre>
+32
+33
+34</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 14</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 32</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_pattern_source'>pattern_source</span>
   <span class='ivar'>@pattern_source</span>
@@ -728,22 +856,23 @@ as the pattern parameter.
   </div>
 
 
-  <div id="instance_method_details" class="method_details_list">
-    <h2>Instance Method Details</h2>
-    
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
     
       <div class="method_details first">
-  <p class="signature first" id="===-instance_method">
+  <h3 class="signature first" id="register-class_method">
   
-    - (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>===</strong>(process_data) 
+    + (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>register</strong>(*arguments, &amp;block) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Whether the processor is suitable for the given ProcessData
-</p>
+    <p>Creates a Processor and registers it.
+The arguments are passed verbatim to Processor::new.</p>
 
 
   </div>
@@ -757,12 +886,129 @@ Whether the processor is suitable for the given ProcessData
       <pre class="lines">
 
 
-51
-52
-53</pre>
+19
+20
+21
+22
+23
+24</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 19</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_processor'>processor</span> <span class='op'>=</span> <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='op'>*</span><span class='id identifier rubyid_arguments'>arguments</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='const'>DirectoryTemplate</span><span class='period'>.</span><span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='id identifier rubyid_processor'>processor</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_processor'>processor</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="register_all-class_method">
+  
+    + (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>register_all</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Searches for all processors and registers them</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+9
+10
+11
+12
+13
+14
+15</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 9</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_register_all'>register_all</span>
+  <span class='gvar'>$LOAD_PATH</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_path'>path</span><span class='op'>|</span>
+    <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_glob'>glob</span><span class='lparen'>(</span><span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>directory_template</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>processor</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>**</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*.rb</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_processor'>processor</span><span class='op'>|</span>
+      <span class='id identifier rubyid_require'>require</span> <span class='id identifier rubyid_processor'>processor</span>
+    <span class='kw'>end</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="===-instance_method">
+  
+    - (<tt>Boolean</tt>) <strong>===</strong>(process_data) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Whether the processor is suitable for the given ProcessData</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Whether the processor is suitable for the given ProcessData</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+75
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 75</span>
 
 <span class='kw'>def</span> <span class='op'>===</span><span class='lparen'>(</span><span class='id identifier rubyid_process_data'>process_data</span><span class='rparen'>)</span>
   <span class='ivar'>@pattern</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_process_data'>process_data</span><span class='rparen'>)</span>
@@ -773,23 +1019,23 @@ Whether the processor is suitable for the given ProcessData
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="call-instance_method">
+  <h3 class="signature " id="call-instance_method">
   
     - (<tt><span class='object_link'><a href="ProcessData.html" title="DirectoryTemplate::ProcessData (class)">DirectoryTemplate::ProcessData</a></span></tt>) <strong>call</strong>(process_data) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Apply the processor on a ProcessData instance.
-</p>
+    <p>Apply the processor on a ProcessData instance.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -802,16 +1048,14 @@ Apply the processor on a ProcessData instance.
       
       
         &mdash;
-        <div class='inline'><p>
-The process data to apply this processor on.
-</p>
+        <div class='inline'><p>The process data to apply this processor on.</p>
 </div>
       
     </li>
   
 </ul>
 
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -822,9 +1066,7 @@ The process data to apply this processor on.
       
       
         &mdash;
-        <div class='inline'><p>
-The process_data passed to this method.
-</p>
+        <div class='inline'><p>The process_data passed to this method.</p>
 </div>
       
     </li>
@@ -837,14 +1079,14 @@ The process_data passed to this method.
       <pre class="lines">
 
 
-62
-63
-64
-65
-66</pre>
+86
+87
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 62</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 86</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_process_data'>process_data</span><span class='rparen'>)</span>
   <span class='ivar'>@execute</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='id identifier rubyid_process_data'>process_data</span><span class='rparen'>)</span>
@@ -856,14 +1098,65 @@ The process_data passed to this method.
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="require-instance_method">
+  
+    - (<tt><span class='object_link'><a href="../Object.html" title="Object (class)">Object</a></span></tt>) <strong>require</strong>(lib) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Invokes Kernel#require, and fails with a custom error message.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Kernel#require</li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+94
+95
+96
+97
+98</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/processor.rb', line 94</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_require'>require</span><span class='lparen'>(</span><span class='id identifier rubyid_lib'>lib</span><span class='rparen'>)</span>
+  <span class='kw'>super</span><span class='lparen'>(</span><span class='id identifier rubyid_lib'>lib</span><span class='rparen'>)</span>
+<span class='kw'>rescue</span> <span class='const'>LoadError</span>
+  <span class='id identifier rubyid_raise'>raise</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>The </span><span class='embexpr_beg'>#{</span><span class='ivar'>@name</span> <span class='op'>||</span> <span class='ivar'>@id</span><span class='rbrace'>}</span><span class='tstring_content'> processor requires </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_lib'>lib</span><span class='rbrace'>}</span><span class='tstring_content'> in order to work</span><span class='tstring_end'>&quot;</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sat Apr 28 23:47:21 2012 by 
+  Generated on Wed May  2 23:00:10 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.8.1 (ruby-1.9.3).
 </div>
 
   </body>

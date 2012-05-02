@@ -6,7 +6,7 @@
 <title>
   Class: DirectoryTemplate::ErbTemplate::Variables
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="../../css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
-  relpath = '../..';
-  if (relpath != '') relpath += '/';
+  hasFrames = window.top.frames.main ? true : false;
+  relpath = '../../';
+  framesUrl = "../../frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="../../_index.html">Index (V)</a> &raquo; 
+    <a href="../../_index.html">Index (V)</a> &raquo;
     <span class='title'><span class='object_link'><a href="../../DirectoryTemplate.html" title="DirectoryTemplate (class)">DirectoryTemplate</a></span></span> &raquo; <span class='title'><span class='object_link'><a href="../ErbTemplate.html" title="DirectoryTemplate::ErbTemplate (class)">ErbTemplate</a></span></span>
      &raquo; 
     <span class="title">Variables</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="../../class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="../../method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="../../file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: DirectoryTemplate::ErbTemplate::Variables
   
   
@@ -96,26 +103,40 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <h1>Indexing</h1>
-<p>
-Author:   Stefan Rusterholz Contact:  contact@apeiros.me Version:  0.1.0
-</p>
-<h1>About</h1>
-<p>
-Similar to OpenStruct, but slightly optimized for create once, use once and
-giving diagnostics on exceptions/missing keys.
-</p>
-<h1>Synopsis</h1>
-<pre class="code ruby"><code>
-  <span class='id identifier rubyid_tmpl'>tmpl</span> <span class='op'>=</span> <span class='const'>Variables</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_delegator'>delegator</span><span class='comma'>,</span> <span class='symbol'>:variable</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>content</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_exception'>exception</span><span class='op'>|</span>
-    <span class='id identifier rubyid_do_something_with'>do_something_with</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='rparen'>)</span>
-  <span class='rbrace'>}</span></code></pre>
+    <p>Variables is similar to OpenStruct, but slightly optimized for create once, use once
+and giving diagnostics on exceptions/missing keys.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+      <pre class="example code"><span class='id identifier rubyid_variables'>variables</span> <span class='op'>=</span> <span class='const'>Variables</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_delegator'>delegator</span><span class='comma'>,</span> <span class='symbol'>:x</span> <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>Value of X</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_exception'>exception</span><span class='op'>|</span>
+  <span class='id identifier rubyid_do_something_with'>do_something_with</span><span class='lparen'>(</span><span class='id identifier rubyid_exception'>exception</span><span class='rparen'>)</span>
+<span class='rbrace'>}</span>
+<span class='id identifier rubyid_variables'>variables</span><span class='period'>.</span><span class='id identifier rubyid_x'>x</span> <span class='comment'># =&gt; &quot;Value of X&quot;</span></pre>
+    
+  </div>
+
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>Stefan Rusterholz <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#115;&#116;&#101;&#102;&#097;&#110;&#046;&#114;&#117;&#115;&#116;&#101;&#114;&#104;&#111;&#108;&#122;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#115;&#116;&#101;&#102;&#097;&#110;&#046;&#114;&#117;&#115;&#116;&#101;&#114;&#104;&#111;&#108;&#122;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a></p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div>
   <h2>Constant Summary</h2>
@@ -125,10 +146,9 @@ giving diagnostics on exceptions/missing keys.
         <dt id="Raiser-constant" class="">Raiser =
           <div class="docstring">
   <div class="discussion">
-    <p>
-A proc for &amp;on_error in SilverPlatter::Variables::new or
-SilverPlatter::Templater#result. Raises the error further on.
-</p>
+    <p>A proc for &amp;on_error in DirectoryTemplate::ErbTemplate::Variables::new or
+DirectoryTemplate::ErbTemplate#result.
+Raises the error further on.</p>
 
 
   </div>
@@ -145,11 +165,10 @@ SilverPlatter::Templater#result. Raises the error further on.
         <dt id="Teller-constant" class="">Teller =
           <div class="docstring">
   <div class="discussion">
-    <p>
-A proc for &amp;on_error in SilverPlatter::Variables.new or
-SilverPlatter::Templater#result. Inserts <<error_class: error_message>> in
-the place where the error occurred.
-</p>
+    <p>A proc for &amp;on_error in DirectoryTemplate::ErbTemplate::Variables.new or
+DirectoryTemplate::ErbTemplate#result.
+Inserts &laquo;error_class: error_message&raquo; in the place where the error
+occurred.</p>
 
 
   </div>
@@ -166,9 +185,7 @@ the place where the error occurred.
         <dt id="EmptyHash-constant" class="">EmptyHash =
           <div class="docstring">
   <div class="discussion">
-    <p>
-An empty Hash
-</p>
+    <p>An empty Hash</p>
 
 
   </div>
@@ -183,9 +200,7 @@ An empty Hash
         <dt id="SetterPattern-constant" class="">SetterPattern =
           <div class="docstring">
   <div class="discussion">
-    <p>
-Regex to match setter method names
-</p>
+    <p>Regex to match setter method names</p>
 
 
   </div>
@@ -217,7 +232,7 @@ Regex to match setter method names
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#__binding__-instance_method" title="#__binding__ (instance method)">- (Object) <strong>__binding__</strong> </a>
+      <a href="#__binding__-instance_method" title="#__binding__ (instance method)">- (Binding) <strong>__binding__</strong> </a>
     
 
     
@@ -228,11 +243,10 @@ Regex to match setter method names
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Make the binding publicly available.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Make the binding publicly available.</p>
 </div></span>
   
 </li>
@@ -241,7 +255,7 @@ Make the binding publicly available.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#__keys__-instance_method" title="#__keys__ (instance method)">- (Object) <strong>__keys__</strong>(include_delegate = true) </a>
+      <a href="#__keys__-instance_method" title="#__keys__ (instance method)">- (Array&lt;Symbol&gt;) <strong>__keys__</strong>(include_delegate = true) </a>
     
 
     
@@ -252,13 +266,12 @@ Make the binding publicly available.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-All keys this Variables instance provides, if the include_delegate argument
-is true and the object to delegate to responds to <em>keys</em>, then it
-will add the keys of the delegate.
-</p>
+    <span class="summary_desc"><div class='inline'><p>All keys this Variables instance provides, if the include_delegate argument is
+true and the object to delegate to responds to <strong>keys</strong>, then it will add the
+keys of the delegate.</p>
 </div></span>
   
 </li>
@@ -267,11 +280,12 @@ will add the keys of the delegate.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Variables) <strong>initialize</strong>(delegate = nil, variables = {}, on_error_name = nil, &amp;on_error) </a>
+      <a href="#initialize-instance_method" title="#initialize (instance method)">- (Variables) <strong>initialize</strong>(delegate = nil, variables = {}, on_error_name = nil) {|exception| ... }</a>
     
 
     
   </span>
+  
   
     <span class="note title constructor">constructor</span>
   
@@ -282,14 +296,7 @@ will add the keys of the delegate.
   
 
   
-    <span class="summary_desc"><div class='inline'><h3>Arguments</h3>
-<ul>
-<li><p>
-delegate:      All method calls and undefined variables are delegated to
-this object as method call.
-</p>
-</li>
-</ul>
+    <span class="summary_desc"><div class='inline'><p>A new instance of Variables.</p>
 </div></span>
   
 </li>
@@ -309,11 +316,10 @@ this object as method call.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-:nodoc:.
-</p>
+    <span class="summary_desc"><div class='inline'><p>See Object#inspect.</p>
 </div></span>
   
 </li>
@@ -333,11 +339,10 @@ this object as method call.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-:nodoc:.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Set or get the value associated with the key matching the method name.</p>
 </div></span>
   
 </li>
@@ -346,7 +351,7 @@ this object as method call.
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#respond_to%3F-instance_method" title="#respond_to? (instance method)">- (Boolean) <strong>respond_to?</strong>(key) </a>
+      <a href="#respond_to_missing%3F-instance_method" title="#respond_to_missing? (instance method)">- (Boolean) <strong>respond_to_missing?</strong>(key) </a>
     
 
     
@@ -357,11 +362,10 @@ this object as method call.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-See Object#respond_to?.
-</p>
+    <span class="summary_desc"><div class='inline'>
 </div></span>
   
 </li>
@@ -378,48 +382,105 @@ See Object#respond_to?.
   
   
   
+  
   <h3 class="inherited">Methods inherited from <span class='object_link'><a href="../BlankSlate.html" title="DirectoryTemplate::BlankSlate (class)">BlankSlate</a></span></h3>
   <p class="inherited"><span class='object_link'><a href="../BlankSlate.html#find_hidden_method-class_method" title="DirectoryTemplate::BlankSlate.find_hidden_method (method)">find_hidden_method</a></span>, <span class='object_link'><a href="../BlankSlate.html#hide-class_method" title="DirectoryTemplate::BlankSlate.hide (method)">hide</a></span>, <span class='object_link'><a href="../BlankSlate.html#reveal-class_method" title="DirectoryTemplate::BlankSlate.reveal (method)">reveal</a></span></p>
 <div id="constructor_details" class="method_details_list">
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <p class="signature first" id="initialize-instance_method">
+  <h3 class="signature first" id="initialize-instance_method">
   
-    - (<tt><span class='object_link'><a href="" title="DirectoryTemplate::ErbTemplate::Variables (class)">Variables</a></span></tt>) <strong>initialize</strong>(delegate = nil, variables = {}, on_error_name = nil, &amp;on_error) 
+    - (<tt><span class='object_link'><a href="" title="DirectoryTemplate::ErbTemplate::Variables (class)">Variables</a></span></tt>) <strong>initialize</strong>(delegate = nil, variables = {}, on_error_name = nil) {|exception| ... }
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <h3>Arguments</h3>
-<ul>
-<li><p>
-delegate:      All method calls and undefined variables are delegated to
-this object as method call.
-</p>
-</li>
-<li><p>
-variables:     A hash with variables in it, keys must be Symbols.
-</p>
-</li>
-<li><p>
-on_error_name: Instead of a block you can pass the name of an existing
-handler, e.g. :Raiser or :Teller.
-</p>
-</li>
-<li><p>
-&amp;on_error:     The block is yielded in case of an exception with the
-exception as argument
-</p>
-</li>
-</ul>
+    <p>A new instance of Variables</p>
 
 
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>delegate</span>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>All method calls and undefined variables are delegated to this object as method
+call.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>variables</span>
+      
+      
+        <span class='type'>(<tt>Hash&lt;Symbol,<span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span>&gt;</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>{}</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>A hash with variables in it, keys must be Symbols.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>on_error_name</span>
+      
+      
+        <span class='type'>(<tt>Symbol</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>nil</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'><p>Instead of a block you can pass the name of an existing handler, e.g. :Raiser
+or :Teller.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Yields:</p>
+<ul class="yield">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>exception</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>description
+The block is yielded in case of an exception with the exception as argument.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -427,18 +488,18 @@ exception as argument
       <pre class="lines">
 
 
-65
-66
-67
-68
 69
 70
 71
 72
-73</pre>
+73
+74
+75
+76
+77</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 65</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 69</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_delegate'>delegate</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_variables'>variables</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='id identifier rubyid_on_error_name'>on_error_name</span><span class='op'>=</span><span class='kw'>nil</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_error'>on_error</span><span class='rparen'>)</span>
   <span class='ivar'>@delegate</span> <span class='op'>=</span> <span class='id identifier rubyid_delegate'>delegate</span>
@@ -463,17 +524,17 @@ exception as argument
   </p>
   
     <div class="method_details first">
-  <p class="signature first" id="method_missing-instance_method">
+  <h3 class="signature first" id="method_missing-instance_method">
   
     - (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>method_missing</strong>(m, *args) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-:nodoc:
-</p>
+    <p>Set or get the value associated with the key matching the method name.</p>
 
 
   </div>
@@ -487,21 +548,21 @@ exception as argument
       <pre class="lines">
 
 
-91
-92
-93
-94
-95
-96
-97
-98
-99
 100
 101
-102</pre>
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 91</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 100</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_method_missing'>method_missing</span><span class='lparen'>(</span><span class='id identifier rubyid_m'>m</span><span class='comma'>,</span> <span class='op'>*</span><span class='id identifier rubyid_args'>args</span><span class='rparen'>)</span> <span class='comment'># :nodoc:
 </span>  <span class='id identifier rubyid_argn'>argn</span> <span class='op'>=</span> <span class='id identifier rubyid_args'>args</span><span class='period'>.</span><span class='id identifier rubyid_length'>length</span>
@@ -525,26 +586,43 @@ exception as argument
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="__binding__-instance_method">
+  <h3 class="signature first" id="__binding__-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>__binding__</strong> 
+    - (<tt>Binding</tt>) <strong>__binding__</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Make the binding publicly available
-</p>
+    <p>Make the binding publicly available</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Binding</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>Make the binding publicly available</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -552,12 +630,12 @@ Make the binding publicly available
       <pre class="lines">
 
 
-82
-83
-84</pre>
+88
+89
+90</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 82</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 88</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid___binding__'>__binding__</span>
   <span class='id identifier rubyid_binding'>binding</span>
@@ -568,25 +646,44 @@ Make the binding publicly available
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="__keys__-instance_method">
+  <h3 class="signature " id="__keys__-instance_method">
   
-    - (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>__keys__</strong>(include_delegate = true) 
+    - (<tt>Array&lt;Symbol&gt;</tt>) <strong>__keys__</strong>(include_delegate = true) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-All keys this Variables instance provides, if the include_delegate argument
-is true and the object to delegate to responds to <em>keys</em>, then it
-will add the keys of the delegate.
-</p>
+    <p>All keys this Variables instance provides, if the include_delegate argument is
+true and the object to delegate to responds to <strong>keys</strong>, then it will add the
+keys of the delegate.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;Symbol&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>All keys this Variables instance provides, if the include_delegate argument is
+true and the object to delegate to responds to <strong>keys</strong>, then it will add the
+keys of the delegate.</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><table class="source_code">
   <tr>
@@ -594,12 +691,12 @@ will add the keys of the delegate.
       <pre class="lines">
 
 
-77
-78
-79</pre>
+83
+84
+85</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 77</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 83</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid___keys__'>__keys__</span><span class='lparen'>(</span><span class='id identifier rubyid_include_delegate'>include_delegate</span><span class='op'>=</span><span class='kw'>true</span><span class='rparen'>)</span>
   <span class='ivar'>@table</span><span class='period'>.</span><span class='id identifier rubyid_keys'>keys</span> <span class='op'>+</span> <span class='lparen'>(</span><span class='lparen'>(</span><span class='id identifier rubyid_include_delegate'>include_delegate</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@delegate</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='symbol'>:__keys__</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>?</span> <span class='ivar'>@delegate</span><span class='period'>.</span><span class='id identifier rubyid___keys__'>__keys__</span> <span class='op'>:</span> <span class='lbracket'>[</span><span class='rbracket'>]</span><span class='rparen'>)</span>
@@ -610,17 +707,17 @@ will add the keys of the delegate.
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="inspect-instance_method">
+  <h3 class="signature " id="inspect-instance_method">
   
     - (<tt><span class='object_link'><a href="../../Object.html" title="Object (class)">Object</a></span></tt>) <strong>inspect</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-:nodoc:
-</p>
+    <p>See Object#inspect</p>
 
 
   </div>
@@ -634,16 +731,16 @@ will add the keys of the delegate.
       <pre class="lines">
 
 
-104
-105
-106
-107
-108
-109
-110</pre>
+115
+116
+117
+118
+119
+120
+121</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 104</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span> <span class='comment'># :nodoc:
 </span>  <span class='id identifier rubyid_sprintf'>sprintf</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;%s:0x%08x @delegate=%s %s&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
@@ -658,24 +755,24 @@ will add the keys of the delegate.
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="respond_to?-instance_method">
+  <h3 class="signature " id="respond_to_missing?-instance_method">
   
-    - (<tt>Boolean</tt>) <strong>respond_to?</strong>(key) 
+    - (<tt>Boolean</tt>) <strong>respond_to_missing?</strong>(key) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-See Object#respond_to?
-</p>
+    
 
 
   </div>
 </div>
 <div class="tags">
   
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -689,21 +786,28 @@ See Object#respond_to?
   
 </ul>
 
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li>Object#respond_to_missing?</li>
+    
+  </ul>
+
 </div><table class="source_code">
   <tr>
     <td>
       <pre class="lines">
 
 
-87
-88
-89</pre>
+94
+95
+96</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 87</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template/erb_template.rb', line 94</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
-  <span class='ivar'>@table</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='ivar'>@delegate</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@delegate</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='kw'>super</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_respond_to_missing?'>respond_to_missing?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span>
+  <span class='ivar'>@table</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span> <span class='op'>||</span> <span class='lparen'>(</span><span class='ivar'>@delegate</span> <span class='op'>&amp;&amp;</span> <span class='ivar'>@delegate</span><span class='period'>.</span><span class='id identifier rubyid_respond_to?'>respond_to?</span><span class='lparen'>(</span><span class='id identifier rubyid_key'>key</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -713,11 +817,11 @@ See Object#respond_to?
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sat Apr 28 23:47:22 2012 by 
+  Generated on Wed May  2 23:00:10 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.8.1 (ruby-1.9.3).
 </div>
 
   </body>

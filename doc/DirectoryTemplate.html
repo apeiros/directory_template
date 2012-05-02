@@ -6,7 +6,7 @@
 <title>
   Class: DirectoryTemplate
   
-    &mdash; Documentation by YARD 0.7.5
+    &mdash; Documentation by YARD 0.8.1
   
 </title>
 
@@ -15,9 +15,11 @@
   <link rel="stylesheet" href="css/common.css" type="text/css" media="screen" charset="utf-8" />
 
 <script type="text/javascript" charset="utf-8">
+  hasFrames = window.top.frames.main ? true : false;
   relpath = '';
-  if (relpath != '') relpath += '/';
+  framesUrl = "frames.html#!" + escape(window.location.href);
 </script>
+
 
   <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
 
@@ -26,36 +28,41 @@
 
   </head>
   <body>
-    <script type="text/javascript" charset="utf-8">
-      if (window.top.frames.main) document.body.className = 'frames';
-    </script>
-    
     <div id="header">
       <div id="menu">
   
-    <a href="_index.html">Index (D)</a> &raquo; 
+    <a href="_index.html">Index (D)</a> &raquo;
     
     
     <span class="title">DirectoryTemplate</span>
   
-  
+
   <div class="noframes"><span class="title">(</span><a href="." target="_top">no frames</a><span class="title">)</span></div>
 </div>
 
       <div id="search">
   
-    <a id="class_list_link" href="#">Class List</a>
+    <a class="full_list_link" id="class_list_link"
+        href="class_list.html">
+      Class List
+    </a>
   
-    <a id="method_list_link" href="#">Method List</a>
+    <a class="full_list_link" id="method_list_link"
+        href="method_list.html">
+      Method List
+    </a>
   
-    <a id="file_list_link" href="#">File List</a>
+    <a class="full_list_link" id="file_list_link"
+        href="file_list.html">
+      File List
+    </a>
   
 </div>
       <div class="clear"></div>
     </div>
-    
+
     <iframe id="search_frame"></iframe>
-    
+
     <div id="content"><h1>Class: DirectoryTemplate
   
   
@@ -88,7 +95,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/directory_template.rb<span class="defines">,<br />
-  lib/directory_template/version.rb,<br /> lib/directory_template/processor.rb,<br /> lib/directory_template/blank_slate.rb,<br /> lib/directory_template/process_data.rb,<br /> lib/directory_template/erb_template.rb,<br /> lib/directory_template/processor/erb.rb</span>
+  lib/directory_template/version.rb,<br /> lib/directory_template/processor.rb,<br /> lib/directory_template/blank_slate.rb,<br /> lib/directory_template/erb_template.rb,<br /> lib/directory_template/process_data.rb,<br /> lib/directory_template/processor/erb.rb,<br /> lib/directory_template/processor/markdown.rb</span>
 </dd>
   
 </dl>
@@ -96,37 +103,54 @@
 
 <h2>Overview</h2><div class="docstring">
   <div class="discussion">
-    <p>
-@version: 1.0.0
-</p>
-<p>
-DirectoryTemplate Create directory structures from template directory
-structures or template data.
-</p>
-<p>
-Preregistered processors
-</p>
-<ul>
-<li><p>
-&#8217;*.stop&#8217;: Stops the preprocessing chain, it&#8217;s advised to
-add that to all files for
-</p>
-<pre class="code ruby"><code>
-          future-proofness.</code></pre>
-</li>
-</ul>
+    <p>DirectoryTemplate
+Create directory structures from template directory structures or template data.</p>
+
+<p>Preregistered processors
+* :stop: Stops the preprocessing chain, it&rsquo;s advised to add that to all files for
+         future-proofness.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>Stefan Rusterholz <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#115;&#116;&#101;&#102;&#097;&#110;&#046;&#114;&#117;&#115;&#116;&#101;&#114;&#104;&#111;&#108;&#122;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;">&#115;&#116;&#101;&#102;&#097;&#110;&#046;&#114;&#117;&#115;&#116;&#101;&#114;&#104;&#111;&#108;&#122;&#064;&#103;&#109;&#097;&#105;&#108;&#046;&#099;&#111;&#109;</a></p>
+</div>
+      
+    </li>
+  
+</ul>
+<p class="tag_title">Version:</p>
+<ul class="version">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'><p>1.0.0</p>
+</div>
+      
+    </li>
+  
+</ul>
 
 </div><h2>Defined Under Namespace</h2>
 <p class="children">
-   
+  
     
-   
+  
     
       <strong class="classes">Classes:</strong> <span class='object_link'><a href="DirectoryTemplate/BlankSlate.html" title="DirectoryTemplate::BlankSlate (class)">BlankSlate</a></span>, <span class='object_link'><a href="DirectoryTemplate/ErbTemplate.html" title="DirectoryTemplate::ErbTemplate (class)">ErbTemplate</a></span>, <span class='object_link'><a href="DirectoryTemplate/ProcessData.html" title="DirectoryTemplate::ProcessData (class)">ProcessData</a></span>, <span class='object_link'><a href="DirectoryTemplate/Processor.html" title="DirectoryTemplate::Processor (class)">Processor</a></span>
     
@@ -140,9 +164,7 @@ add that to all files for
         <dt id="Processors-constant" class="">Processors =
           <div class="docstring">
   <div class="discussion">
-    <p>
-All registered processors
-</p>
+    <p>All registered processors</p>
 
 
   </div>
@@ -152,18 +174,14 @@ All registered processors
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='lbracket'>[</span>
-  <span class='const'>Processor</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>*.stop</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>Terminate processing queue</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>After .stop, no processor will be run anymore</span><span class='tstring_end'>'</span></span><span class='rparen'>)</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_chomp_suffix!'>chomp_suffix!</span><span class='semicolon'>;</span> <span class='id identifier rubyid_throw'>throw</span> <span class='symbol'>:stop_processing</span> <span class='rbrace'>}</span>
-<span class='rbracket'>]</span></pre></dd>
+        <dd><pre class="code"><span class='lbracket'>[</span><span class='rbracket'>]</span></pre></dd>
       
         <dt id="StandardPathProcessor-constant" class="">StandardPathProcessor =
           <div class="docstring">
   <div class="discussion">
-    <p>
-The standard processor for file- and directory-paths. It simply uses
-String#% style keyword replacement. I.e., &#8220;%{key}&#8221; is replaced
-by the variable value passed with :key.
-</p>
+    <p>The standard processor for file- and directory-paths. It simply uses String#% style
+keyword replacement. I.e., <code>%{key}</code> is replaced by the variable value passed with
+:key.</p>
 
 
   </div>
@@ -180,9 +198,7 @@ by the variable value passed with :key.
         <dt id="DefaultOptions-constant" class="">DefaultOptions =
           <div class="docstring">
   <div class="discussion">
-    <p>
-The default options used by DirectoryTemplate
-</p>
+    <p>The default options used by DirectoryTemplate</p>
 
 
   </div>
@@ -204,9 +220,7 @@ The default options used by DirectoryTemplate
         <dt id="Version-constant" class="">Version =
           <div class="docstring">
   <div class="discussion">
-    <p>
-The version of DirectoryTemplate
-</p>
+    <p>The version of DirectoryTemplate</p>
 
 
   </div>
@@ -237,7 +251,10 @@ The version of DirectoryTemplate
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -246,9 +263,7 @@ The version of DirectoryTemplate
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-All directories of the template.
-</p>
+    <span class="summary_desc"><div class='inline'><p>All directories of the template.</p>
 </div></span>
   
 </li>
@@ -264,7 +279,10 @@ All directories of the template.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -273,10 +291,8 @@ All directories of the template.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Same as #materialize, but doesn&#8217;t actually do anything, except print
-the debug and info messages.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Same as #materialize, but doesn&rsquo;t actually do anything, except print the debug and
+info messages.</p>
 </div></span>
   
 </li>
@@ -292,7 +308,10 @@ the debug and info messages.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -301,9 +320,7 @@ the debug and info messages.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-All files of the template and their content.
-</p>
+    <span class="summary_desc"><div class='inline'><p>All files of the template and their content.</p>
 </div></span>
   
 </li>
@@ -319,7 +336,10 @@ All files of the template and their content.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -328,9 +348,7 @@ All files of the template and their content.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Meta information can be used by processors.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Meta information can be used by processors.</p>
 </div></span>
   
 </li>
@@ -346,7 +364,10 @@ Meta information can be used by processors.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -355,9 +376,7 @@ Meta information can be used by processors.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-The object on which info and debug messages are printed.
-</p>
+    <span class="summary_desc"><div class='inline'><p>The object on which info and debug messages are printed.</p>
 </div></span>
   
 </li>
@@ -373,7 +392,10 @@ The object on which info and debug messages are printed.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -382,9 +404,7 @@ The object on which info and debug messages are printed.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-The path processor used by this template.
-</p>
+    <span class="summary_desc"><div class='inline'><p>The path processor used by this template.</p>
 </div></span>
   
 </li>
@@ -400,7 +420,10 @@ The path processor used by this template.
   </span>
   
   
-    <span class="note title readonly">readonly</span>
+  
+    
+      <span class="note title readonly">readonly</span>
+    
     
   
   
@@ -409,9 +432,7 @@ The path processor used by this template.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-The content processors used by this template.
-</p>
+    <span class="summary_desc"><div class='inline'><p>The content processors used by this template.</p>
 </div></span>
   
 </li>
@@ -427,6 +448,7 @@ The content processors used by this template.
   </span>
   
   
+  
     
     
   
@@ -436,9 +458,7 @@ The content processors used by this template.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-When true, will not even output info messages.
-</p>
+    <span class="summary_desc"><div class='inline'><p>When true, will not even output info messages.</p>
 </div></span>
   
 </li>
@@ -454,6 +474,7 @@ When true, will not even output info messages.
   </span>
   
   
+  
     
     
   
@@ -463,9 +484,7 @@ When true, will not even output info messages.
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-When true, will additionally output debug messages.
-</p>
+    <span class="summary_desc"><div class='inline'><p>When true, will additionally output debug messages.</p>
 </div></span>
   
 </li>
@@ -498,12 +517,10 @@ When true, will additionally output debug messages.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Converts a recursive hash into a suitable data structure for
-DirectoryTemplate::new.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Converts a recursive hash into a suitable data structure for DirectoryTemplate::new.</p>
 </div></span>
   
 </li>
@@ -523,11 +540,33 @@ DirectoryTemplate::new.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Create a DirectoryTemplate from an existing directory structure.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Create a DirectoryTemplate from an existing directory structure.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#from_hash-class_method" title="from_hash (class method)">+ (Object) <strong>from_hash</strong>(hash, options = nil) </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>Create a DirectoryTemplate from a nested hash structure.</p>
 </div></span>
   
 </li>
@@ -547,11 +586,10 @@ Create a DirectoryTemplate from an existing directory structure.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-You can register custom processors for templates.
-</p>
+    <span class="summary_desc"><div class='inline'><p>You can register custom processors for templates.</p>
 </div></span>
   
 </li>
@@ -571,11 +609,10 @@ You can register custom processors for templates.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Create a DirectoryTemplate from a YAML file.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Create a DirectoryTemplate from a YAML file.</p>
 </div></span>
   
 </li>
@@ -604,12 +641,10 @@ Create a DirectoryTemplate from a YAML file.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Create the given directory and emit an info message (unless in dry_run
-mode).
-</p>
+    <span class="summary_desc"><div class='inline'><p>Create the given directory and emit an info message (unless in dry_run mode).</p>
 </div></span>
   
 </li>
@@ -629,11 +664,10 @@ mode).
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Create the given file and emit an info message (unless in dry_run mode).
-</p>
+    <span class="summary_desc"><div class='inline'><p>Create the given file and emit an info message (unless in dry_run mode).</p>
 </div></span>
   
 </li>
@@ -653,11 +687,10 @@ Create the given file and emit an info message (unless in dry_run mode).
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Emit a debug string (the return value of the block).
-</p>
+    <span class="summary_desc"><div class='inline'><p>Emit a debug string (the return value of the block).</p>
 </div></span>
   
 </li>
@@ -677,11 +710,10 @@ Emit a debug string (the return value of the block).
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Emit an info string (the return value of the block).
-</p>
+    <span class="summary_desc"><div class='inline'><p>Emit an info string (the return value of the block).</p>
 </div></span>
   
 </li>
@@ -696,6 +728,7 @@ Emit an info string (the return value of the block).
     
   </span>
   
+  
     <span class="note title constructor">constructor</span>
   
   
@@ -705,9 +738,7 @@ Emit an info string (the return value of the block).
   
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Create a new DirectoryTemplate.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Create a new DirectoryTemplate.</p>
 </div></span>
   
 </li>
@@ -727,11 +758,10 @@ Create a new DirectoryTemplate.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Creates all the directories and files from the template in the given path.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Creates all the directories and files from the template in the given path.</p>
 </div></span>
   
 </li>
@@ -751,11 +781,10 @@ Creates all the directories and files from the template in the given path.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Preprocesses the given content.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Preprocesses the given content.</p>
 </div></span>
   
 </li>
@@ -775,11 +804,10 @@ Preprocesses the given content.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Preprocesses the given path.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Preprocesses the given path.</p>
 </div></span>
   
 </li>
@@ -799,11 +827,10 @@ Preprocesses the given path.
   
   
   
+  
 
   
-    <span class="summary_desc"><div class='inline'><p>
-Returns the processor or nil.
-</p>
+    <span class="summary_desc"><div class='inline'><p>Returns the processor or nil.</p>
 </div></span>
   
 </li>
@@ -816,23 +843,23 @@ Returns the processor or nil.
   <h2>Constructor Details</h2>
   
     <div class="method_details first">
-  <p class="signature first" id="initialize-instance_method">
+  <h3 class="signature first" id="initialize-instance_method">
   
     - (<tt><span class='object_link'><a href="" title="DirectoryTemplate (class)">DirectoryTemplate</a></span></tt>) <strong>initialize</strong>(data, options = nil) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Create a new DirectoryTemplate
-</p>
+    <p>Create a new DirectoryTemplate</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -845,11 +872,9 @@ Create a new DirectoryTemplate
       
       
         &mdash;
-        <div class='inline'><p>
-A hash with the two keys :directories and :files, where :directories
-contains an Array of all directory names, and :files contains a Hash of all
-file names and their unprocessed content.
-</p>
+        <div class='inline'><p>A hash with the two keys :directories and :files, where :directories contains an
+Array of all directory names, and :files contains a Hash of all file names and their
+unprocessed content.</p>
 </div>
       
     </li>
@@ -866,17 +891,15 @@ file names and their unprocessed content.
       
       
         &mdash;
-        <div class='inline'><p>
-An options hash, @see DirectoryTemplate::DefaultOptions for a list of all
-available options.
-</p>
+        <div class='inline'><p>An options hash, @see DirectoryTemplate::DefaultOptions for a list of all available
+options.</p>
 </div>
       
     </li>
   
 </ul>
 
-<h3>Raises:</h3>
+<p class="tag_title">Raises:</p>
 <ul class="raise">
   
     <li>
@@ -890,7 +913,7 @@ available options.
   
 </ul>
 
-  <h3>See Also:</h3>
+  <p class="tag_title">See Also:</p>
   <ul class="see">
     
       <li>To create a DirectoryTemplate from an existing directory structure.</li>
@@ -905,22 +928,22 @@ available options.
       <pre class="lines">
 
 
-144
-145
-146
-147
-148
-149
-150
-151
-152
-153
 154
 155
-156</pre>
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 144</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 154</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span>               <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>?</span> <span class='const'>DefaultOptions</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='const'>DefaultOptions</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
@@ -949,24 +972,24 @@ available options.
       <span id=""></span>
       <span id="directories-instance_method"></span>
       <div class="method_details first">
-  <p class="signature first" id="directories-instance_method">
+  <h3 class="signature first" id="directories-instance_method">
   
     - (<tt>Array</tt>) <strong>directories</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-All directories of the template
-</p>
+    <p>All directories of the template</p>
 
 
   </div>
 </div>
 <div class="tags">
   
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -977,9 +1000,7 @@ All directories of the template
       
       
         &mdash;
-        <div class='inline'><p>
-All directories of the template
-</p>
+        <div class='inline'><p>All directories of the template</p>
 </div>
       
     </li>
@@ -992,12 +1013,12 @@ All directories of the template
       <pre class="lines">
 
 
-105
-106
-107</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 105</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_directories'>directories</span>
   <span class='ivar'>@directories</span>
@@ -1011,19 +1032,19 @@ All directories of the template
       <span id=""></span>
       <span id="dry_run-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="dry_run-instance_method">
+  <h3 class="signature " id="dry_run-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>dry_run</strong>(in_path = '.', env = {}, &amp;on_collision)  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Same as #materialize, but doesn&#8217;t actually do anything, except print
-the debug and info messages. It additionally prints an info message,
-containing the file content of files that would be created.
-</p>
+    <p>Same as #materialize, but doesn&rsquo;t actually do anything, except print the debug and
+info messages. It additionally prints an info message, containing the file content
+of files that would be created.</p>
 
 
   </div>
@@ -1037,21 +1058,15 @@ containing the file content of files that would be created.
       <pre class="lines">
 
 
-121
-122
-123
-124
-125
-126</pre>
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 131</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_dry_run'>dry_run</span><span class='lparen'>(</span><span class='id identifier rubyid_in_path'>in_path</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>.</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_collision'>on_collision</span><span class='rparen'>)</span>
-  <span class='ivar'>@dry_run</span> <span class='op'>=</span> <span class='kw'>true</span>
-  <span class='id identifier rubyid_materialize'>materialize</span><span class='lparen'>(</span><span class='id identifier rubyid_in_path'>in_path</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_collision'>on_collision</span><span class='rparen'>)</span>
-<span class='kw'>ensure</span>
-  <span class='ivar'>@dry_run</span> <span class='op'>=</span> <span class='kw'>false</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_dry_run'>dry_run</span>
+  <span class='ivar'>@dry_run</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1062,24 +1077,24 @@ containing the file content of files that would be created.
       <span id=""></span>
       <span id="files-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="files-instance_method">
+  <h3 class="signature " id="files-instance_method">
   
     - (<tt>Hash&lt;String,String&gt;</tt>) <strong>files</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-All files of the template and their content.
-</p>
+    <p>All files of the template and their content.</p>
 
 
   </div>
 </div>
 <div class="tags">
   
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -1090,9 +1105,7 @@ All files of the template and their content.
       
       
         &mdash;
-        <div class='inline'><p>
-All files of the template and their content.
-</p>
+        <div class='inline'><p>All files of the template and their content.</p>
 </div>
       
     </li>
@@ -1105,12 +1118,12 @@ All files of the template and their content.
       <pre class="lines">
 
 
-108
-109
-110</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 108</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_files'>files</span>
   <span class='ivar'>@files</span>
@@ -1124,18 +1137,18 @@ All files of the template and their content.
       <span id=""></span>
       <span id="meta-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="meta-instance_method">
+  <h3 class="signature " id="meta-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>meta</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Meta information can be used by processors. There&#8217;s no requirements
-on them, except that the toplevel container is a hash.
-</p>
+    <p>Meta information can be used by processors. There&rsquo;s no requirements on them, except
+that the toplevel container is a hash.</p>
 
 
   </div>
@@ -1149,12 +1162,12 @@ on them, except that the toplevel container is a hash.
       <pre class="lines">
 
 
-102
-103
-104</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 102</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_meta'>meta</span>
   <span class='ivar'>@meta</span>
@@ -1168,24 +1181,24 @@ on them, except that the toplevel container is a hash.
       <span id=""></span>
       <span id="out-instance_method"></span>
       <div class="method_details ">
-  <p class="signature " id="out-instance_method">
+  <h3 class="signature " id="out-instance_method">
   
     - (<tt>IO</tt>, <tt>#puts</tt>) <strong>out</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-The object on which info and debug messages are printed
-</p>
+    <p>The object on which info and debug messages are printed</p>
 
 
   </div>
 </div>
 <div class="tags">
   
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -1196,224 +1209,12 @@ The object on which info and debug messages are printed
       
       
         &mdash;
-        <div class='inline'><p>
-The object on which info and debug messages are printed
-</p>
+        <div class='inline'><p>The object on which info and debug messages are printed</p>
 </div>
       
     </li>
   
 </ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-117
-118
-119</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 117</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_out'>out</span>
-  <span class='ivar'>@out</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <span id="path_processor-instance_method"></span>
-      <div class="method_details ">
-  <p class="signature " id="path_processor-instance_method">
-  
-    - (<tt>#call</tt>) <strong>path_processor</strong>  <span class="extras">(readonly)</span>
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-The path processor used by this template.
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>#call</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>
-The path processor used by this template.
-</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-114
-115
-116</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 114</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_path_processor'>path_processor</span>
-  <span class='ivar'>@path_processor</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id=""></span>
-      <span id="processors-instance_method"></span>
-      <div class="method_details ">
-  <p class="signature " id="processors-instance_method">
-  
-    - (<tt>Array&lt;<span class='object_link'><a href="DirectoryTemplate/Processor.html" title="DirectoryTemplate::Processor (class)">DirectoryTemplate::Processor</a></span>&gt;</tt>) <strong>processors</strong>  <span class="extras">(readonly)</span>
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-The content processors used by this template.
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-<h3>Returns:</h3>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="DirectoryTemplate/Processor.html" title="DirectoryTemplate::Processor (class)">DirectoryTemplate::Processor</a></span>&gt;</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'><p>
-The content processors used by this template.
-</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-111
-112
-113</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 111</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_processors'>processors</span>
-  <span class='ivar'>@processors</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id="silent=-instance_method"></span>
-      <span id="silent-instance_method"></span>
-      <div class="method_details ">
-  <p class="signature " id="silent-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>silent</strong> 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-When true, will not even output info messages
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
-
-</div><table class="source_code">
-  <tr>
-    <td>
-      <pre class="lines">
-
-
-124
-125
-126</pre>
-    </td>
-    <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 124</span>
-
-<span class='kw'>def</span> <span class='id identifier rubyid_silent'>silent</span>
-  <span class='ivar'>@silent</span>
-<span class='kw'>end</span></pre>
-    </td>
-  </tr>
-</table>
-</div>
-    
-      
-      <span id="verbose=-instance_method"></span>
-      <span id="verbose-instance_method"></span>
-      <div class="method_details ">
-  <p class="signature " id="verbose-instance_method">
-  
-    - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>verbose</strong> 
-  
-
-  
-</p><div class="docstring">
-  <div class="discussion">
-    <p>
-When true, will additionally output debug messages
-</p>
-
-
-  </div>
-</div>
-<div class="tags">
-  
 
 </div><table class="source_code">
   <tr>
@@ -1428,34 +1229,149 @@ When true, will additionally output debug messages
     <td>
       <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 127</span>
 
-<span class='kw'>def</span> <span class='id identifier rubyid_verbose'>verbose</span>
-  <span class='ivar'>@verbose</span>
+<span class='kw'>def</span> <span class='id identifier rubyid_out'>out</span>
+  <span class='ivar'>@out</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
 </table>
 </div>
     
-  </div>
-
-
-  <div id="class_method_details" class="method_details_list">
-    <h2>Class Method Details</h2>
-    
-    
-      <div class="method_details first">
-  <p class="signature first" id="convert_recursive_structure-class_method">
+      
+      <span id=""></span>
+      <span id="path_processor-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="path_processor-instance_method">
   
-    + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>convert_recursive_structure</strong>(current, stack = [], dirs = [], files = {}) 
+    - (<tt>#call</tt>) <strong>path_processor</strong>  <span class="extras">(readonly)</span>
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Converts a recursive hash into a suitable data structure for
-DirectoryTemplate::new
-</p>
+    <p>The path processor used by this template.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>#call</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The path processor used by this template.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+124
+125
+126</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 124</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_path_processor'>path_processor</span>
+  <span class='ivar'>@path_processor</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id=""></span>
+      <span id="processors-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="processors-instance_method">
+  
+    - (<tt>Array&lt;<span class='object_link'><a href="DirectoryTemplate/Processor.html" title="DirectoryTemplate::Processor (class)">DirectoryTemplate::Processor</a></span>&gt;</tt>) <strong>processors</strong>  <span class="extras">(readonly)</span>
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>The content processors used by this template.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="DirectoryTemplate/Processor.html" title="DirectoryTemplate::Processor (class)">DirectoryTemplate::Processor</a></span>&gt;</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'><p>The content processors used by this template.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+121
+122
+123</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 121</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_processors'>processors</span>
+  <span class='ivar'>@processors</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="silent=-instance_method"></span>
+      <span id="silent-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="silent-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>silent</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>When true, will not even output info messages</p>
 
 
   </div>
@@ -1469,9 +1385,96 @@ DirectoryTemplate::new
       <pre class="lines">
 
 
-70
-71
-72
+134
+135
+136</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 134</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_silent'>silent</span>
+  <span class='ivar'>@silent</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      
+      <span id="verbose=-instance_method"></span>
+      <span id="verbose-instance_method"></span>
+      <div class="method_details ">
+  <h3 class="signature " id="verbose-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>verbose</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>When true, will additionally output debug messages</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+137
+138
+139</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 137</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_verbose'>verbose</span>
+  <span class='ivar'>@verbose</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+
+  <div id="class_method_details" class="method_details_list">
+    <h2>Class Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="convert_recursive_structure-class_method">
+  
+    + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>convert_recursive_structure</strong>(current, stack = [], dirs = [], files = {}) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>Converts a recursive hash into a suitable data structure for DirectoryTemplate::new</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
 73
 74
 75
@@ -1485,10 +1488,13 @@ DirectoryTemplate::new
 83
 84
 85
-86</pre>
+86
+87
+88
+89</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 70</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 73</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_convert_recursive_structure'>convert_recursive_structure</span><span class='lparen'>(</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_stack'>stack</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_files'>files</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_segment'>segment</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='op'>|</span>
@@ -1513,17 +1519,17 @@ DirectoryTemplate::new
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="directory-class_method">
+  <h3 class="signature " id="directory-class_method">
   
     + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>directory</strong>(template_path, options = {}) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Create a DirectoryTemplate from an existing directory structure.
-</p>
+    <p>Create a DirectoryTemplate from an existing directory structure.</p>
 
 
   </div>
@@ -1537,9 +1543,6 @@ Create a DirectoryTemplate from an existing directory structure.
       <pre class="lines">
 
 
-55
-56
-57
 58
 59
 60
@@ -1548,10 +1551,13 @@ Create a DirectoryTemplate from an existing directory structure.
 63
 64
 65
-66</pre>
+66
+67
+68
+69</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 55</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 58</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_directory'>directory</span><span class='lparen'>(</span><span class='id identifier rubyid_template_path'>template_path</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span>    <span class='op'>=</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='id identifier rubyid_template_path'>template_path</span><span class='rparen'>)</span> <span class='lbrace'>{</span>
@@ -1571,25 +1577,75 @@ Create a DirectoryTemplate from an existing directory structure.
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="register-class_method">
+  <h3 class="signature " id="from_hash-class_method">
   
-    + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>register</strong>(processor) 
+    + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>from_hash</strong>(hash, options = nil) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-You can register custom processors for templates. They&#8217;re triggered
-based on the pattern. A processor can change the ProcessData struct passed
-to it, which will be reflected when creating the file or directory
-</p>
+    <p>Create a DirectoryTemplate from a nested hash structure.
+The hash should just be a recursive hash of strings. Use an empty hash to indicate
+an empty directory. Leaf-strings are considered to be the content of a file. Use nil
+to indicate an empty file.</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+95
+96
+97
+98
+99
+100</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 95</span>
+
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_hash'>from_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span> <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_convert_recursive_structure'>convert_recursive_structure</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_data'>data</span>        <span class='op'>=</span> <span class='lbrace'>{</span><span class='symbol'>:directories</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span> <span class='symbol'>:files</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_files'>files</span><span class='rbrace'>}</span>
+
+  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="register-class_method">
+  
+    + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>register</strong>(processor) 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>You can register custom processors for templates. They&rsquo;re triggered based on the
+pattern.
+A processor can change the ProcessData struct passed to it, which will be reflected
+when creating the file or directory</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
@@ -1602,9 +1658,7 @@ to it, which will be reflected when creating the file or directory
       
       
         &mdash;
-        <div class='inline'><p>
-The processor to register
-</p>
+        <div class='inline'><p>The processor to register</p>
 </div>
       
     </li>
@@ -1618,12 +1672,12 @@ The processor to register
       <pre class="lines">
 
 
-50
 51
-52</pre>
+52
+53</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 50</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 51</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='id identifier rubyid_processor'>processor</span><span class='rparen'>)</span>
   <span class='const'>Processors</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_processor'>processor</span>
@@ -1634,20 +1688,20 @@ The processor to register
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="yaml_file-class_method">
+  <h3 class="signature " id="yaml_file-class_method">
   
     + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>yaml_file</strong>(path, options = nil) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Create a DirectoryTemplate from a YAML file. The yaml should just be a
-recursive hash of strings. Use an empty hash to indicate an empty
-directory. Leaf-strings are considered to be the content of a file. Use nil
-to indicate an empty file.
-</p>
+    <p>Create a DirectoryTemplate from a YAML file.
+The yaml should just be a recursive hash of strings. Use an empty hash to indicate
+an empty directory. Leaf-strings are considered to be the content of a file. Use nil
+to indicate an empty file.</p>
 
 
   </div>
@@ -1661,23 +1715,15 @@ to indicate an empty file.
       <pre class="lines">
 
 
-92
-93
-94
-95
-96
-97
-98</pre>
+106
+107
+108</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 92</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 106</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_yaml_file'>yaml_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_raw'>raw</span>         <span class='op'>=</span> <span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span> <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_convert_recursive_structure'>convert_recursive_structure</span><span class='lparen'>(</span><span class='id identifier rubyid_raw'>raw</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_data'>data</span>        <span class='op'>=</span> <span class='lbrace'>{</span><span class='symbol'>:directories</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span> <span class='symbol'>:files</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_files'>files</span><span class='rbrace'>}</span>
-
-  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_from_hash'>from_hash</span><span class='lparen'>(</span><span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1688,30 +1734,27 @@ to indicate an empty file.
 
   <div id="instance_method_details" class="method_details_list">
     <h2>Instance Method Details</h2>
-    
+
     
       <div class="method_details first">
-  <p class="signature first" id="create_directory-instance_method">
+  <h3 class="signature first" id="create_directory-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>create_directory</strong>(path, mode = 0755, &amp;message) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
   <div class="note notetag">
-    <strong>Note:</strong> 
-    <div class='inline'><p>
-The mode param is currently unused.
-</p>
+    <strong>Note:</strong>
+    <div class='inline'><p>The mode param is currently unused.</p>
 </div>
   </div>
 
-<p>
-Create the given directory and emit an info message (unless in dry_run
-mode).
-</p>
+<p>Create the given directory and emit an info message (unless in dry_run mode).</p>
 
 
   </div>
@@ -1725,15 +1768,15 @@ mode).
       <pre class="lines">
 
 
-233
-234
-235
-236
-237
-238</pre>
+243
+244
+245
+246
+247
+248</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 233</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 243</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_directory'>create_directory</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='op'>=</span><span class='int'>0755</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='kw'>then</span>
@@ -1747,26 +1790,24 @@ mode).
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="create_file-instance_method">
+  <h3 class="signature " id="create_file-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>create_file</strong>(path, content = &quot;&quot;, mode = 0644, &amp;message) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
     
   <div class="note notetag">
-    <strong>Note:</strong> 
-    <div class='inline'><p>
-The mode param is currently unused.
-</p>
+    <strong>Note:</strong>
+    <div class='inline'><p>The mode param is currently unused.</p>
 </div>
   </div>
 
-<p>
-Create the given file and emit an info message (unless in dry_run mode).
-</p>
+<p>Create the given file and emit an info message (unless in dry_run mode).</p>
 
 
   </div>
@@ -1780,19 +1821,19 @@ Create the given file and emit an info message (unless in dry_run mode).
       <pre class="lines">
 
 
-244
-245
-246
-247
-248
-249
-250
-251
-252
-253</pre>
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 244</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 254</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_file'>create_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='op'>=</span><span class='int'>0644</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
@@ -1810,18 +1851,18 @@ Create the given file and emit an info message (unless in dry_run mode).
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="debug-instance_method">
+  <h3 class="signature " id="debug-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>debug</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Emit a debug string (the return value of the block). Will only be emitted
-if DirectoryTemplate#debug is true
-</p>
+    <p>Emit a debug string (the return value of the block). Will only be emitted if
+DirectoryTemplate#debug is true</p>
 
 
   </div>
@@ -1835,12 +1876,12 @@ if DirectoryTemplate#debug is true
       <pre class="lines">
 
 
-275
-276
-277</pre>
+285
+286
+287</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 275</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 285</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_debug'>debug</span>
   <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='kw'>yield</span> <span class='kw'>if</span> <span class='ivar'>@verbose</span>
@@ -1851,18 +1892,18 @@ if DirectoryTemplate#debug is true
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="info-instance_method">
+  <h3 class="signature " id="info-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>info</strong> 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Emit an info string (the return value of the block). Will not be emitted if
-DirectoryTemplate#silent is true
-</p>
+    <p>Emit an info string (the return value of the block). Will not be emitted if
+DirectoryTemplate#silent is true</p>
 
 
   </div>
@@ -1876,12 +1917,12 @@ DirectoryTemplate#silent is true
       <pre class="lines">
 
 
-268
-269
-270</pre>
+278
+279
+280</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 268</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 278</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span>
   <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='kw'>yield</span> <span class='kw'>unless</span> <span class='ivar'>@silent</span>
@@ -1892,17 +1933,17 @@ DirectoryTemplate#silent is true
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="materialize-instance_method">
+  <h3 class="signature " id="materialize-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>materialize</strong>(in_path = '.', env = {}, &amp;on_collision) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Creates all the directories and files from the template in the given path.
-</p>
+    <p>Creates all the directories and files from the template in the given path.</p>
 
 
   </div>
@@ -1910,7 +1951,7 @@ Creates all the directories and files from the template in the given path.
 <div class="tags">
   
 
-  <h3>See Also:</h3>
+  <p class="tag_title">See Also:</p>
   <ul class="see">
     
       <li><span class='object_link'><a href="#dry_run-instance_method" title="DirectoryTemplate#dry_run (method)">For a way to see what would happen with materialize</a></span></li>
@@ -1923,16 +1964,6 @@ Creates all the directories and files from the template in the given path.
       <pre class="lines">
 
 
-170
-171
-172
-173
-174
-175
-176
-177
-178
-179
 180
 181
 182
@@ -1959,10 +1990,20 @@ Creates all the directories and files from the template in the given path.
 203
 204
 205
-206</pre>
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 170</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 180</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_materialize'>materialize</span><span class='lparen'>(</span><span class='id identifier rubyid_in_path'>in_path</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>.</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_collision'>on_collision</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_in_path'>in_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_in_path'>in_path</span><span class='rparen'>)</span>
@@ -2007,17 +2048,17 @@ Creates all the directories and files from the template in the given path.
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="process_content-instance_method">
+  <h3 class="signature " id="process_content-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>process_content</strong>(path, content, env) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Preprocesses the given content
-</p>
+    <p>Preprocesses the given content</p>
 
 
   </div>
@@ -2031,21 +2072,21 @@ Preprocesses the given content
       <pre class="lines">
 
 
-216
-217
-218
-219
-220
-221
-222
-223
-224
-225
 226
-227</pre>
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 216</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 226</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_content'>process_content</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'>ProcessData</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
@@ -2065,17 +2106,17 @@ Preprocesses the given content
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="process_path-instance_method">
+  <h3 class="signature " id="process_path-instance_method">
   
     - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>process_path</strong>(path, env) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Preprocesses the given path
-</p>
+    <p>Preprocesses the given path</p>
 
 
   </div>
@@ -2089,12 +2130,12 @@ Preprocesses the given path
       <pre class="lines">
 
 
-210
-211
-212</pre>
+220
+221
+222</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 210</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 220</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_path'>process_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
   <span class='const'>ProcessData</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='ivar'>@path_processor</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
@@ -2105,45 +2146,43 @@ Preprocesses the given path
 </div>
     
       <div class="method_details ">
-  <p class="signature " id="processor_for-instance_method">
+  <h3 class="signature " id="processor_for-instance_method">
   
     - (<tt><span class='object_link'><a href="DirectoryTemplate/Processor.html" title="DirectoryTemplate::Processor (class)">Processor</a></span></tt><sup>?</sup>) <strong>processor_for</strong>(data) 
   
 
   
-</p><div class="docstring">
+
+  
+</h3><div class="docstring">
   <div class="discussion">
-    <p>
-Returns the processor or nil
-</p>
+    <p>Returns the processor or nil</p>
 
 
   </div>
 </div>
 <div class="tags">
-  <h3>Parameters:</h3>
+  <p class="tag_title">Parameters:</p>
 <ul class="param">
   
     <li>
       
-        <span class='name'>path</span>
+        <span class='name'>data</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt><span class='object_link'><a href="DirectoryTemplate/ProcessData.html" title="DirectoryTemplate::ProcessData (class)">ProcessData</a></span></tt>)</span>
       
       
       
         &mdash;
-        <div class='inline'><p>
-The path to extract the processor from.
-</p>
+        <div class='inline'><p>The data which the processor should apply to.</p>
 </div>
       
     </li>
   
 </ul>
 
-<h3>Returns:</h3>
+<p class="tag_title">Returns:</p>
 <ul class="return">
   
     <li>
@@ -2154,9 +2193,7 @@ The path to extract the processor from.
       
       
         &mdash;
-        <div class='inline'><p>
-Returns the processor or nil
-</p>
+        <div class='inline'><p>Returns the processor or nil</p>
 </div>
       
     </li>
@@ -2169,15 +2206,15 @@ Returns the processor or nil
       <pre class="lines">
 
 
-261
-262
-263</pre>
+271
+272
+273</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 261</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 271</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_processor_for'>processor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
-  <span class='ivar'>@processors</span><span class='period'>.</span><span class='id identifier rubyid_enum_for'>enum_for</span><span class='lparen'>(</span><span class='symbol'>:grep</span><span class='comma'>,</span> <span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_first'>first</span>
+  <span class='ivar'>@processors</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_processor'>processor</span><span class='op'>|</span> <span class='id identifier rubyid_processor'>processor</span> <span class='op'>===</span> <span class='id identifier rubyid_data'>data</span> <span class='rbrace'>}</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2187,11 +2224,11 @@ Returns the processor or nil
   </div>
 
 </div>
-    
+
     <div id="footer">
-  Generated on Sat Apr 28 23:47:21 2012 by 
+  Generated on Wed May  2 23:00:10 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.7.5 (ruby-1.9.2).
+  0.8.1 (ruby-1.9.3).
 </div>
 
   </body>
