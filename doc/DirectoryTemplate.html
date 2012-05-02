@@ -95,7 +95,7 @@
   
     <dt class="r2 last">Defined in:</dt>
     <dd class="r2 last">lib/directory_template.rb<span class="defines">,<br />
-  lib/directory_template/version.rb,<br /> lib/directory_template/processor.rb,<br /> lib/directory_template/blank_slate.rb,<br /> lib/directory_template/erb_template.rb,<br /> lib/directory_template/process_data.rb,<br /> lib/directory_template/processor/erb.rb,<br /> lib/directory_template/processor/markdown.rb</span>
+  lib/directory_template/version.rb,<br /> lib/directory_template/processor.rb,<br /> lib/directory_template/blank_slate.rb,<br /> lib/directory_template/process_data.rb,<br /> lib/directory_template/erb_template.rb,<br /> lib/directory_template/processor/erb.rb,<br /> lib/directory_template/processor/stop.rb,<br /> lib/directory_template/processor/format.rb,<br /> lib/directory_template/processor/markdown.rb</span>
 </dd>
   
 </dl>
@@ -179,9 +179,8 @@ Create directory structures from template directory structures or template data.
         <dt id="StandardPathProcessor-constant" class="">StandardPathProcessor =
           <div class="docstring">
   <div class="discussion">
-    <p>The standard processor for file- and directory-paths. It simply uses String#% style
-keyword replacement. I.e., <code>%{key}</code> is replaced by the variable value passed with
-:key.</p>
+    <p>The standard path processor, just replaces <code>%{sprintf_style_variables}</code> with their
+values.</p>
 
 
   </div>
@@ -191,9 +190,7 @@ keyword replacement. I.e., <code>%{key}</code> is replaced by the variable value
 
 </div>
         </dt>
-        <dd><pre class="code"><span class='id identifier rubyid_proc'>proc</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_data'>data</span><span class='op'>|</span>
-  <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span> <span class='op'>%</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_path_variables'>path_variables</span> <span class='kw'>if</span> <span class='id identifier rubyid_data'>data</span><span class='period'>.</span><span class='id identifier rubyid_path_variables'>path_variables</span>
-<span class='rbrace'>}</span></pre></dd>
+        <dd><pre class="code"><span class='const'>Processor</span><span class='op'>::</span><span class='const'>Format</span></pre></dd>
       
         <dt id="DefaultOptions-constant" class="">DefaultOptions =
           <div class="docstring">
@@ -214,6 +211,7 @@ keyword replacement. I.e., <code>%{key}</code> is replaced by the variable value
   <span class='symbol'>:out</span>            <span class='op'>=&gt;</span> <span class='gvar'>$stdout</span><span class='comma'>,</span>
   <span class='symbol'>:processors</span>     <span class='op'>=&gt;</span> <span class='const'>Processors</span><span class='comma'>,</span>
   <span class='symbol'>:path_processor</span> <span class='op'>=&gt;</span> <span class='const'>StandardPathProcessor</span><span class='comma'>,</span>
+  <span class='symbol'>:source</span>         <span class='op'>=&gt;</span> <span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>(unknown)</span><span class='tstring_end'>'</span></span><span class='comma'>,</span>
   <span class='symbol'>:meta</span>           <span class='op'>=&gt;</span> <span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span>
 <span class='rbrace'>}</span></pre></dd>
       
@@ -598,7 +596,7 @@ info messages.</p>
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#yaml_file-class_method" title="yaml_file (class method)">+ (Object) <strong>yaml_file</strong>(path, options = nil) </a>
+      <a href="#yaml_file-class_method" title="yaml_file (class method)">+ (Object) <strong>yaml_file</strong>(path, options = {}) </a>
     
 
     
@@ -739,6 +737,29 @@ info messages.</p>
 
   
     <span class="summary_desc"><div class='inline'><p>Create a new DirectoryTemplate.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#inspect-instance_method" title="#inspect (instance method)">- (Object) <strong>inspect</strong> </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'><p>See Object#inspect.</p>
 </div></span>
   
 </li>
@@ -928,6 +949,9 @@ options.</p>
       <pre class="lines">
 
 
+151
+152
+153
 154
 155
 156
@@ -938,17 +962,16 @@ options.</p>
 161
 162
 163
-164
-165
-166</pre>
+164</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 154</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 151</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_initialize'>initialize</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_options'>options</span>               <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span> <span class='op'>?</span> <span class='const'>DefaultOptions</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span> <span class='op'>:</span> <span class='const'>DefaultOptions</span><span class='period'>.</span><span class='id identifier rubyid_dup'>dup</span>
   <span class='ivar'>@directories</span>          <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:directories</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
   <span class='ivar'>@files</span>                <span class='op'>=</span> <span class='id identifier rubyid_data'>data</span><span class='lbracket'>[</span><span class='symbol'>:files</span><span class='rbracket'>]</span> <span class='op'>||</span> <span class='lbracket'>[</span><span class='rbracket'>]</span>
+  <span class='ivar'>@source</span>               <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:source</span><span class='rparen'>)</span>
   <span class='ivar'>@meta</span>                 <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:meta</span><span class='rparen'>)</span>
   <span class='ivar'>@verbose</span>              <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:verbose</span><span class='rparen'>)</span>
   <span class='ivar'>@silent</span>               <span class='op'>=</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_delete'>delete</span><span class='lparen'>(</span><span class='symbol'>:silent</span><span class='rparen'>)</span>
@@ -1013,12 +1036,12 @@ options.</p>
       <pre class="lines">
 
 
-115
-116
-117</pre>
+112
+113
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 115</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 112</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_directories'>directories</span>
   <span class='ivar'>@directories</span>
@@ -1058,12 +1081,12 @@ of files that would be created.</p>
       <pre class="lines">
 
 
-131
-132
-133</pre>
+128
+129
+130</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 131</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 128</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dry_run'>dry_run</span>
   <span class='ivar'>@dry_run</span>
@@ -1118,12 +1141,12 @@ of files that would be created.</p>
       <pre class="lines">
 
 
-118
-119
-120</pre>
+115
+116
+117</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 118</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 115</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_files'>files</span>
   <span class='ivar'>@files</span>
@@ -1162,12 +1185,12 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
-112
-113
-114</pre>
+109
+110
+111</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 112</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 109</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_meta'>meta</span>
   <span class='ivar'>@meta</span>
@@ -1222,12 +1245,12 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
-127
-128
-129</pre>
+124
+125
+126</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 127</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 124</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_out'>out</span>
   <span class='ivar'>@out</span>
@@ -1282,12 +1305,12 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
-124
-125
-126</pre>
+121
+122
+123</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 124</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 121</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_path_processor'>path_processor</span>
   <span class='ivar'>@path_processor</span>
@@ -1342,12 +1365,12 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
-121
-122
-123</pre>
+118
+119
+120</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 121</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 118</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_processors'>processors</span>
   <span class='ivar'>@processors</span>
@@ -1385,12 +1408,12 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
-134
-135
-136</pre>
+131
+132
+133</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 134</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 131</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_silent'>silent</span>
   <span class='ivar'>@silent</span>
@@ -1428,12 +1451,12 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
-137
-138
-139</pre>
+134
+135
+136</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 137</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 134</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_verbose'>verbose</span>
   <span class='ivar'>@verbose</span>
@@ -1475,6 +1498,9 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
+70
+71
+72
 73
 74
 75
@@ -1488,13 +1514,10 @@ that the toplevel container is a hash.</p>
 83
 84
 85
-86
-87
-88
-89</pre>
+86</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 73</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 70</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_convert_recursive_structure'>convert_recursive_structure</span><span class='lparen'>(</span><span class='id identifier rubyid_current'>current</span><span class='comma'>,</span> <span class='id identifier rubyid_stack'>stack</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_dirs'>dirs</span><span class='op'>=</span><span class='lbracket'>[</span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid_files'>files</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_current'>current</span><span class='period'>.</span><span class='id identifier rubyid_each'>each</span> <span class='kw'>do</span> <span class='op'>|</span><span class='id identifier rubyid_segment'>segment</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='op'>|</span>
@@ -1543,6 +1566,9 @@ that the toplevel container is a hash.</p>
       <pre class="lines">
 
 
+55
+56
+57
 58
 59
 60
@@ -1551,13 +1577,10 @@ that the toplevel container is a hash.</p>
 63
 64
 65
-66
-67
-68
-69</pre>
+66</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 58</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 55</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_directory'>directory</span><span class='lparen'>(</span><span class='id identifier rubyid_template_path'>template_path</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span>    <span class='op'>=</span> <span class='const'>Dir</span><span class='period'>.</span><span class='id identifier rubyid_chdir'>chdir</span><span class='lparen'>(</span><span class='id identifier rubyid_template_path'>template_path</span><span class='rparen'>)</span> <span class='lbrace'>{</span>
@@ -1569,7 +1592,7 @@ that the toplevel container is a hash.</p>
     <span class='lbrace'>{</span><span class='symbol'>:directories</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_directories'>directories</span><span class='comma'>,</span> <span class='symbol'>:files</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_filemap'>filemap</span><span class='rbrace'>}</span>
   <span class='rbrace'>}</span>
 
-  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:source</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_template_path'>template_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1604,15 +1627,15 @@ to indicate an empty file.</p>
       <pre class="lines">
 
 
+92
+93
+94
 95
 96
-97
-98
-99
-100</pre>
+97</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 95</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 92</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_from_hash'>from_hash</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_dirs'>dirs</span><span class='comma'>,</span> <span class='id identifier rubyid_files'>files</span> <span class='op'>=</span> <span class='id identifier rubyid_convert_recursive_structure'>convert_recursive_structure</span><span class='lparen'>(</span><span class='id identifier rubyid_hash'>hash</span><span class='rparen'>)</span>
@@ -1672,12 +1695,12 @@ when creating the file or directory</p>
       <pre class="lines">
 
 
-51
-52
-53</pre>
+34
+35
+36</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 51</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 34</span>
 
 <span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_register'>register</span><span class='lparen'>(</span><span class='id identifier rubyid_processor'>processor</span><span class='rparen'>)</span>
   <span class='const'>Processors</span> <span class='op'>&lt;&lt;</span> <span class='id identifier rubyid_processor'>processor</span>
@@ -1690,7 +1713,7 @@ when creating the file or directory</p>
       <div class="method_details ">
   <h3 class="signature " id="yaml_file-class_method">
   
-    + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>yaml_file</strong>(path, options = nil) 
+    + (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>yaml_file</strong>(path, options = {}) 
   
 
   
@@ -1715,15 +1738,15 @@ to indicate an empty file.</p>
       <pre class="lines">
 
 
-106
-107
-108</pre>
+103
+104
+105</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 106</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 103</span>
 
-<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_yaml_file'>yaml_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='kw'>nil</span><span class='rparen'>)</span>
-  <span class='id identifier rubyid_from_hash'>from_hash</span><span class='lparen'>(</span><span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='rparen'>)</span>
+<span class='kw'>def</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_yaml_file'>yaml_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_from_hash'>from_hash</span><span class='lparen'>(</span><span class='const'>YAML</span><span class='period'>.</span><span class='id identifier rubyid_load_file'>load_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span><span class='comma'>,</span> <span class='id identifier rubyid_options'>options</span><span class='period'>.</span><span class='id identifier rubyid_merge'>merge</span><span class='lparen'>(</span><span class='symbol'>:source</span> <span class='op'>=&gt;</span> <span class='id identifier rubyid_template_path'>template_path</span><span class='rparen'>)</span><span class='rparen'>)</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1768,15 +1791,15 @@ to indicate an empty file.</p>
       <pre class="lines">
 
 
+241
+242
 243
 244
 245
-246
-247
-248</pre>
+246</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 243</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 241</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_directory'>create_directory</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='op'>=</span><span class='int'>0755</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='kw'>unless</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_exist?'>exist?</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='rparen'>)</span> <span class='kw'>then</span>
@@ -1821,6 +1844,8 @@ to indicate an empty file.</p>
       <pre class="lines">
 
 
+252
+253
 254
 255
 256
@@ -1828,12 +1853,10 @@ to indicate an empty file.</p>
 258
 259
 260
-261
-262
-263</pre>
+261</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 254</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 252</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_create_file'>create_file</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='id identifier rubyid_mode'>mode</span><span class='op'>=</span><span class='int'>0644</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_info'>info</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_message'>message</span><span class='rparen'>)</span>
@@ -1876,12 +1899,12 @@ DirectoryTemplate#debug is true</p>
       <pre class="lines">
 
 
-285
-286
-287</pre>
+283
+284
+285</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 285</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 283</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_debug'>debug</span>
   <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='kw'>yield</span> <span class='kw'>if</span> <span class='ivar'>@verbose</span>
@@ -1917,15 +1940,55 @@ DirectoryTemplate#silent is true</p>
       <pre class="lines">
 
 
-278
-279
-280</pre>
+276
+277
+278</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 278</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 276</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_info'>info</span>
   <span class='ivar'>@out</span><span class='period'>.</span><span class='id identifier rubyid_puts'>puts</span> <span class='kw'>yield</span> <span class='kw'>unless</span> <span class='ivar'>@silent</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="inspect-instance_method">
+  
+    - (<tt><span class='object_link'><a href="Object.html" title="Object (class)">Object</a></span></tt>) <strong>inspect</strong> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    <p>See Object#inspect</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+289
+290
+291</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 289</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_inspect'>inspect</span>
+  <span class='id identifier rubyid_sprintf'>sprintf</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>#&lt;%s:0x%x source=%p&gt;</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='comma'>,</span> <span class='id identifier rubyid_object_id'>object_id</span><span class='op'>&lt;&lt;</span><span class='int'>1</span><span class='comma'>,</span> <span class='ivar'>@source</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -1964,6 +2027,8 @@ DirectoryTemplate#silent is true</p>
       <pre class="lines">
 
 
+178
+179
 180
 181
 182
@@ -1998,12 +2063,10 @@ DirectoryTemplate#silent is true</p>
 211
 212
 213
-214
-215
-216</pre>
+214</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 180</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 178</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_materialize'>materialize</span><span class='lparen'>(</span><span class='id identifier rubyid_in_path'>in_path</span><span class='op'>=</span><span class='tstring'><span class='tstring_beg'>'</span><span class='tstring_content'>.</span><span class='tstring_end'>'</span></span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='op'>=</span><span class='lbrace'>{</span><span class='rbrace'>}</span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_on_collision'>on_collision</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_in_path'>in_path</span> <span class='op'>=</span> <span class='const'>File</span><span class='period'>.</span><span class='id identifier rubyid_expand_path'>expand_path</span><span class='lparen'>(</span><span class='id identifier rubyid_in_path'>in_path</span><span class='rparen'>)</span>
@@ -2072,6 +2135,8 @@ DirectoryTemplate#silent is true</p>
       <pre class="lines">
 
 
+224
+225
 226
 227
 228
@@ -2081,12 +2146,10 @@ DirectoryTemplate#silent is true</p>
 232
 233
 234
-235
-236
-237</pre>
+235</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 226</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 224</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_content'>process_content</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_data'>data</span> <span class='op'>=</span> <span class='const'>ProcessData</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_content'>content</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
@@ -2130,15 +2193,15 @@ DirectoryTemplate#silent is true</p>
       <pre class="lines">
 
 
-220
-221
-222</pre>
+218
+219
+220</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 220</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 218</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_process_path'>process_path</span><span class='lparen'>(</span><span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span>
-  <span class='const'>ProcessData</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_tap'>tap</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='ivar'>@path_processor</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
+  <span class='ivar'>@path_processor</span><span class='period'>.</span><span class='id identifier rubyid_call'>call</span><span class='lparen'>(</span><span class='const'>ProcessData</span><span class='period'>.</span><span class='id identifier rubyid_new'>new</span><span class='lparen'>(</span><span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid_path'>path</span><span class='comma'>,</span> <span class='kw'>nil</span><span class='comma'>,</span> <span class='id identifier rubyid_env'>env</span><span class='rparen'>)</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_path'>path</span>
 <span class='kw'>end</span></pre>
     </td>
   </tr>
@@ -2206,12 +2269,12 @@ DirectoryTemplate#silent is true</p>
       <pre class="lines">
 
 
-271
-272
-273</pre>
+269
+270
+271</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 271</span>
+      <pre class="code"><span class="info file"># File 'lib/directory_template.rb', line 269</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_processor_for'>processor_for</span><span class='lparen'>(</span><span class='id identifier rubyid_data'>data</span><span class='rparen'>)</span>
   <span class='ivar'>@processors</span><span class='period'>.</span><span class='id identifier rubyid_find'>find</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_processor'>processor</span><span class='op'>|</span> <span class='id identifier rubyid_processor'>processor</span> <span class='op'>===</span> <span class='id identifier rubyid_data'>data</span> <span class='rbrace'>}</span>
@@ -2226,7 +2289,7 @@ DirectoryTemplate#silent is true</p>
 </div>
 
     <div id="footer">
-  Generated on Wed May  2 23:00:10 2012 by
+  Generated on Thu May  3 00:01:05 2012 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.8.1 (ruby-1.9.3).
 </div>

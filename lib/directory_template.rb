@@ -35,6 +35,9 @@ class DirectoryTemplate
     Processors << processor
   end
   Processor.register_all
+
+  # The standard path processor, just replaces `%{sprintf_style_variables}` with their
+  # values.
   StandardPathProcessor = Processor::Format
 
   # The default options used by DirectoryTemplate

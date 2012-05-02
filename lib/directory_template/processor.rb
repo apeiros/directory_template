@@ -3,6 +3,14 @@
 class DirectoryTemplate
 
   # The definition of a processor
+  #
+  # Use {Processor.register} to register a processor. A registered processor is available
+  # in all DirectoryTemplate instances.
+  #
+  # Processor::register takes the same arguments as {Processor#initialize Processor::new}, so look there for how
+  # to define a processor.
+  #
+  # Take a look at {ProcessData} to see what data your processor gets and can work on.
   class Processor
 
     # A matcher-proc to never match
@@ -19,6 +27,8 @@ class DirectoryTemplate
 
     # Creates a Processor and registers it.
     # The arguments are passed verbatim to Processor::new.
+    #
+    # @return [Processor]
     def self.register(*arguments, &block)
       processor = new(*arguments, &block)
       DirectoryTemplate.register(processor)
@@ -46,8 +56,21 @@ class DirectoryTemplate
     # @param [Symbol] id
     #   A (in the set of Processors) unique id
     #
-    # @param [String] pattern
-    #   A glob-like-pattern, e.g. '*.html.haml'
+    # @param [String, Regexp, Proc, #to_proc, nil] pattern
+    #   The pattern determines upon what {ProcessData} this processor is being invoked.
+    #
+    #   If you provide a String, it is interpreted as a glob-like-pattern, e.g.
+    #   '*.html.haml' will match any files whose suffix is '.html.haml'.
+    #   See File::fnmatch for an extensive documentation of glob-patterns.
+    #   
+    #   If you provide a Regexp, the filename is matched against that regexp.
+    #
+    #   If you provide a Proc (or anything that is converted to a proc), the proc gets
+    #   the ProcessData as sole argument and should return true/false, to indicate,
+    #   whether the Processor should be invoked or not.
+    #
+    #   If you pass nil as pattern, the Processor will never be invoked. This is useful
+    #   for processors that serve only as path processors.
     #
     # @param [String] name
     #   The name of the processor
