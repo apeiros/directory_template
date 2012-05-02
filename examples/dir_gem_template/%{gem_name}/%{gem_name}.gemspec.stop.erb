@@ -5,10 +5,10 @@ Gem::Specification.new do |s|
   s.version                   = <%= version.to_s.inspect %>
   s.authors                   = <%= author.inspect %>
   s.description               = <<-DESCRIPTION.gsub(/^    /, '').chomp
-<%= description && description.gsub(/^/,'    ') %>
+<%= description && description.gsub(/^/,'    ').sub(/\n*\z/, "\n") %>
   DESCRIPTION
   s.summary                   = <<-SUMMARY.gsub(/^    /, '').chomp
-<%= summary && summary.gsub(/^/,'    ') %>
+<%= summary && summary.gsub(/^/,'    ').sub(/\n*\z/, "\n") %>
   SUMMARY
   s.email                     = <%= email.inspect %>
 
