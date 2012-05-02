@@ -9,20 +9,23 @@ require 'directory_template/version'
 
 
 
-# @version: 1.0.0
+# @version  1.0.0
+# @author   Stefan Rusterholz <stefan.rusterholz@gmail.com>
 #
 # DirectoryTemplate
 # Create directory structures from template directory structures or template data.
 #
 # Preregistered processors
-# * '*.stop': Stops the preprocessing chain, it's advised to add that to all files for
-#             future-proofness.
+# * :stop: Stops the preprocessing chain, it's advised to add that to all files for
+#          future-proofness.
 class DirectoryTemplate
+
   # All registered processors
   Processors = []
 
   # The standard processor for file- and directory-paths. It simply uses String#% style
-  # keyword replacement. I.e., "%\{key}" is replaced by the variable value passed with :key.
+  # keyword replacement. I.e., `%{key}` is replaced by the variable value passed with
+  # :key.
   StandardPathProcessor = proc { |data|
     data.path = data.path % data.path_variables if data.path_variables
   }
@@ -260,13 +263,13 @@ class DirectoryTemplate
   end
 
   # @private
-  # @param [String] path
-  #   The path to extract the processor from.
+  # @param [ProcessData] data
+  #   The data which the processor should apply to.
   #
   # @return [Processor, nil]
   #   Returns the processor or nil
   def processor_for(data)
-    @processors.enum_for(:grep, data).first
+    @processors.find { |processor| processor === data }
   end
 
   # @private

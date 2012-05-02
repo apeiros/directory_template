@@ -14,7 +14,8 @@ class DirectoryTemplate
       end
     end
 
-    # Creates a Processor and registers it
+    # Creates a Processor and registers it.
+    # The arguments are passed verbatim to Processor::new.
     def self.register(*arguments, &block)
       processor = new(*arguments, &block)
       DirectoryTemplate.register(processor)
@@ -39,6 +40,9 @@ class DirectoryTemplate
     # The implementation of the processor. I.e., the block passed to ::new.
     attr_reader :execute
 
+    # @param [Symbol] id
+    #   A (in the set of Processors) unique id
+    #
     # @param [String] pattern
     #   A glob-like-pattern, e.g. '*.html.haml'
     #
@@ -49,7 +53,7 @@ class DirectoryTemplate
     #   A description, what the processor does
     #
     # @param [#call] execute
-    #   The implementation of the processor.
+    #   The implementation of the processor
     def initialize(id, pattern, name=nil, description=nil, &execute)
       raise ArgumentError, "ID must be a Symbol" unless id.is_a?(Symbol)
       @id             = id
@@ -66,7 +70,8 @@ class DirectoryTemplate
       @execute      = execute
     end
 
-    # Whether the processor is suitable for the given ProcessData
+    # @return [Boolean]
+    #   Whether the processor is suitable for the given ProcessData
     def ===(process_data)
       @pattern.call(process_data)
     end
@@ -84,6 +89,8 @@ class DirectoryTemplate
       process_data
     end
 
+    # Invokes Kernel#require, and fails with a custom error message.
+    # @see Kernel#require
     def require(lib)
       super(lib)
     rescue LoadError

@@ -9,41 +9,39 @@ require 'directory_template/blank_slate'
 
 class DirectoryTemplate
 
-  # = Indexing
-  # @author:  Stefan Rusterholz <contact@apeiros.me>
+  # @author Stefan Rusterholz <stefan.rusterholz@gmail.com>
   #
-  # = About
-  # A helper class for ERB, allows constructs like the one in the Synopsis to
+  # A helper class for ERB. Allows constructs like the one in the examples to
   # enable simple use of variables/methods in templates.
   #
-  # @example
-  #     tmpl = Templater.new("Hello <%= name %>!")
+  # @example A simple ERB template being rendered
+  #     tmpl = DirectoryTemplate::ErbTemplate.new("Hello <%= name %>!")
   #     tmpl.result(self, :name => 'world') # => 'Hello World!'
   #
   class ErbTemplate
 
-    # = Indexing
-    # Author:   Stefan Rusterholz
-    # Contact:  contact@apeiros.me
-    # Version:  0.1.0
+    # @author Stefan Rusterholz <stefan.rusterholz@gmail.com>
     #
-    # = About
-    # Similar to OpenStruct, but slightly optimized for create once, use once and
-    # giving diagnostics on exceptions/missing keys.
+    # Variables is similar to OpenStruct, but slightly optimized for create once, use once
+    # and giving diagnostics on exceptions/missing keys.
     #
-    # = Synopsis
-    #   tmpl = Variables.new(delegator, :variable => "content") { |exception|
+    # @example
+    #   variables = Variables.new(delegator, :x => "Value of X") { |exception|
     #     do_something_with(exception)
     #   }
+    #   variables.x # => "Value of X"
     #
     class Variables < BlankSlate
-      # A proc for &on_error in SilverPlatter::Variables::new or SilverPlatter::Templater#result.
+
+      # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables::new or
+      # DirectoryTemplate::ErbTemplate#result.
       # Raises the error further on.
       Raiser = proc { |e|
         raise(e)
       }
 
-      # A proc for &on_error in SilverPlatter::Variables.new or SilverPlatter::Templater#result.
+      # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables.new or
+      # DirectoryTemplate::ErbTemplate#result.
       # Inserts <<error_class: error_message>> in the place where the error
       # occurred.
       Teller = proc { |e|
@@ -56,11 +54,17 @@ class DirectoryTemplate
       # Regex to match setter method names
       SetterPattern = /=\z/.freeze
 
-      # === Arguments
-      # * delegate:      All method calls and undefined variables are delegated to this object as method call.
-      # * variables:     A hash with variables in it, keys must be Symbols.
-      # * on_error_name: Instead of a block you can pass the name of an existing handler, e.g. :Raiser or :Teller.
-      # * &on_error:     The block is yielded in case of an exception with the exception as argument
+      # @param [Object] delegate
+      #   All method calls and undefined variables are delegated to this object as method
+      #   call.
+      # @param [Hash<Symbol,Object>] variables
+      #   A hash with variables in it, keys must be Symbols.
+      # @param [Symbol] on_error_name
+      #   Instead of a block you can pass the name of an existing handler, e.g. :Raiser
+      #   or :Teller.
+      #
+      # @yield [exception] description
+      #   The block is yielded in case of an exception with the exception as argument.
       #
       def initialize(delegate=nil, variables={}, on_error_name=nil, &on_error)
         @delegate = delegate
@@ -72,22 +76,27 @@ class DirectoryTemplate
         end
       end
 
-      # All keys this Variables instance provides, if the include_delegate argument is true and
-      # the object to delegate to responds to __keys__, then it will add the keys of the delegate.
+      # @return [Array<Symbol>]
+      #   All keys this Variables instance provides, if the include_delegate argument is
+      #   true and the object to delegate to responds to __keys__, then it will add the
+      #   keys of the delegate.
       def __keys__(include_delegate=true)
         @table.keys + ((include_delegate && @delegate.respond_to?(:__keys__)) ? @delegate.__keys__ : [])
       end
 
-      # Make the binding publicly available
+      # @return [Binding] Make the binding publicly available
       def __binding__
         binding
       end
 
-      # See Object#respond_to?
-      def respond_to?(key)
-        @table.respond_to?(key) || (@delegate && @delegate.respond_to?(key)) || super
+      # @private
+      # @see Object#respond_to_missing?
+      def respond_to_missing?(key)
+        @table.respond_to?(key) || (@delegate && @delegate.respond_to?(key))
       end
 
+      # @private
+      # Set or get the value associated with the key matching the method name.
       def method_missing(m, *args) # :nodoc:
         argn = args.length
         if argn.zero? && @table.has_key?(m) then
@@ -101,6 +110,8 @@ class DirectoryTemplate
         @on_error.call(e)
       end
 
+      # @private
+      # See Object#inspect
       def inspect # :nodoc:
         sprintf "#<%s:0x%08x @delegate=%s %s>",
           self.class,
@@ -117,17 +128,17 @@ class DirectoryTemplate
       :eoutvar    => '_erbout'
     }
 
-    # The instance_eval method
+    # An UnboundMethod instance of instance_eval
     InstanceEvaler  = Object.instance_method(:instance_eval)
 
 
-    # A proc for &on_error in SilverPlatter::Variables::new or SilverPlatter::Templater#result.
+    # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables::new or DirectoryTemplate::ErbTemplate#result.
     # Raises the error further on.
     Raiser = proc { |e|
       raise
     }
 
-    # A proc for &on_error in SilverPlatter::Variables.new or SilverPlatter::Templater#result.
+    # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables::new or DirectoryTemplate::ErbTemplate#result.
     # Inserts <<error_class: error_message>> in the place where the error
     # occurred.
     Teller = proc { |e|
@@ -137,61 +148,87 @@ class DirectoryTemplate
     # The template string
     attr_reader :string
 
-    # Like Templater.new, but instead of a template string, the path to the file
+    # Like ErbTemplate.new, but instead of a template string, the path to the file
     # containing the template. Sets :filename.
-    def self.file(path, opt=nil)
-      new(File.read(path), (opt || {}).merge(:filename => path))
+    #
+    # @param [String] path
+    #   The path to the file to use as a template
+    #
+    # @param [Hash] options
+    #   See ErbTemplate::new for the options
+    def self.file(path, options=nil)
+      options = options ? options.merge(:filename => path) : {:filename => path}
+
+      new(File.read(path), options)
     end
 
-    # A convenience method, which evaluates the templates with the given variables and
-    # returns the result.
-    def self.replace(template, variables, &on_error)
-      new(template).result(nil, variables, &on_error)
+    # @param [String] string
+    #   The template string
+    # @param [Hash] options
+    #   A couple of options
+    #
+    # @option options [String] :filename
+    #   The filename used for the evaluation (useful for error messages)
+    # @option options [Integer] :safe_level
+    #   See ERB.new
+    # @option options [String] :trim_mode
+    #   See ERB.new
+    # @option options [Symbol, String] :eoutvar
+    #   See ERB.new
+    def initialize(string, options={})
+      options, string = string, nil if string.kind_of?(Hash)
+      options         = Opt.merge(options)
+      filename        = options.delete(:filename)
+      raise ArgumentError, "String or filename must be given" unless string || filename
+
+      @string       = string || File.read(filename)
+      @erb          = ERB.new(@string, *options.values_at(:safe_level, :trim_mode, :eoutvar))
+      @erb.filename = filename if filename
     end
 
-    # ==== Arguments
-    # * string: The template string, it becomes frozen
-    # * opt:    Option hash, keys:
-    #   * :filename:   The filename used for the evaluation (useful for error messages)
-    #   * :safe_level: see ERB.new
-    #   * :trim_mode:  see ERB.new
-    #   * :eoutvar:    see ERB.new
-    def initialize(string, opt={})
-      opt, string   = string, nil if string.kind_of?(Hash)
-      opt           = Opt.merge(opt)
-      file          = opt.delete(:filename)
-      @string       = string.freeze
-      @erb          = ERB.new(@string, *opt.values_at(:safe_level, :trim_mode, :eoutvar))
-      @erb.filename = file if file
-    end
-
-    # See Templater::Variables.new
-    # Returns the evaluated template. Default &on_error is the Templater::Raiser
-    # proc.
-    def result(delegate=nil, variables={}, on_error_name=nil, &on_error)
+    # @return [String]
+    #   The evaluated template. Default &on_error is the
+    #   DirectoryTemplate::ErbTemplate::Raiser proc.
+    def result(variables=nil, on_error_name=nil, &on_error)
       variables ||= {}
       on_error  ||= Raiser
+      variables = Variables.new(nil, variables, on_error_name, &on_error)
+      @erb.result(variables.__binding__)
+    rescue NameError => e
+      raise NameError, e.message+" for #{self.inspect} with #{variables.inspect}", e.backtrace
+    end
+
+    # @param [Hash] options
+    #   A couple of options
+    #
+    # @option options [Hash] :variables
+    #   A hash with all the variables that should be available in the template.
+    # @option options [Object] :delegate
+    #   An object, to which methods should be delegated.
+    # @option options [Proc, Symbol, #to_proc] :on_error
+    #   The callback to use in case of an exception.
+    #
+    # @return [String]
+    #   The evaluated template. Default &on_error is the
+    #   DirectoryTemplate::ErbTemplate::Raiser proc.
+    def result_with(options, &block)
+      options   = options.dup
+      variables = options.delete(:variables) || {}
+      delegate  = options.delete(:delegate)
+      on_error  = options.delete(:on_error) || block
+      if on_error.is_a?(Symbol) then
+        on_error_name = on_error
+        on_error      = nil
+      end
       variables = Variables.new(delegate, variables, on_error_name, &on_error)
+
       @erb.result(variables.__binding__)
     rescue NameError => e
       raise NameError, e.message+" for #{self.inspect} with #{variables.inspect}", e.backtrace
     end
 
-    # See Templater::Variables.new
-    # Returns the evaluated template. Default &on_error is the Templater::Raiser
-    # proc.
-    def result_with(opt, &block)
-      opt           = opt.dup
-      variables     = opt.delete(:variables) || {}
-      delegate      = opt.delete(:delegate)
-      on_error      = opt.delete(:on_error) || Raiser
-      on_error_name = opt.delete(:on_error_name) || Raiser
-      variables = Variables.new(delegate, variables, on_error_name, block, &on_error)
-      @erb.result(variables.__binding__)
-    rescue NameError => e
-      raise NameError, e.message+" for #{self.inspect} with #{variables.inspect}", e.backtrace
-    end
-
+    # @private
+    # See Object#inspect
     def inspect # :nodoc:
       sprintf "#<%s:0x%x string=%s>",
         self.class,
