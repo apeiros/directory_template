@@ -20,6 +20,8 @@ Gem::Specification.new do |s|
     Dir['bin/**/*'] +
     Dir['lib/**/*'] +
     Dir['rake/**/*'] +
+    Dir['examples/**/*'] +
+    Dir['documentation/**/*'] +
     Dir['test/**/*'] +
     Dir['*.gemspec'] +
     %w[
