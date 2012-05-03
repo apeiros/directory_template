@@ -78,6 +78,21 @@ Also take a look at the {file:documentation/ContentProcessors.markdown Content P
 and the {file:documentation/ContentProcessors.markdown Path Processors Guide}.
 
 
+Links
+-----
+
+* [Online API Documentation](http://rdoc.info/github/apeiros/directory_template/)
+* [Public Repository](https://github.com/apeiros/directory_template)
+* [Bug Reporting](https://github.com/apeiros/directory_template/issues)
+* [RubyGems Site](https://rubygems.org/gems/directory_template)
+
+
+Credits
+-------
+
+* Daniel Schärli, for proofreading the docs
+
+
 License
 -------
 
