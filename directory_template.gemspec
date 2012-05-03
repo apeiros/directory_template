@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name                      = "directory_template"
-  s.version                   = "0.0.1"
+  s.version                   = "1.0.0"
   s.authors                   = "Stefan Rusterholz"
   s.homepage                  = "https://github.com/apeiros/directory_template"
   s.description               = <<-DESCRIPTION.gsub(/^    /, '').chomp
