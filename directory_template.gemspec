@@ -4,6 +4,7 @@ Gem::Specification.new do |s|
   s.name                      = "directory_template"
   s.version                   = "0.0.1"
   s.authors                   = "Stefan Rusterholz"
+  s.homepage                  = "https://github.com/apeiros/directory_template"
   s.description               = <<-DESCRIPTION.gsub(/^    /, '').chomp
     Create directories from templates.
     Existing directory structures, yaml files and ruby datastructures can all serve as
