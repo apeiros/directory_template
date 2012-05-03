@@ -9,7 +9,7 @@ require 'directory_template/version'
 
 
 
-# @version  1.0.0
+# @version  1.0.1
 # @author   Stefan Rusterholz <stefan.rusterholz@gmail.com>
 #
 # DirectoryTemplate

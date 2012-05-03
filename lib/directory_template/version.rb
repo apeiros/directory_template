@@ -9,5 +9,5 @@ end
 class DirectoryTemplate
 
   # The version of DirectoryTemplate
-  Version = Gem::Version.new("1.0.0")
+  Version = Gem::Version.new("1.0.1")
 end
