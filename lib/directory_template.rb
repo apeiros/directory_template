@@ -174,6 +174,20 @@ class DirectoryTemplate
   end
 
   # Creates all the directories and files from the template in the given path.
+  #
+  # @param [String] in_path
+  #   The directory within which to generate the structure.
+  #
+  # @param [Hash] env
+  #   A hash with various information used to generate the structure. Most important one
+  #   being the :variables value.
+  # @option env [Hash] :variables
+  #   A hash with variables available to both, path and content processing
+  # @option env [Hash] :path_variables
+  #   A hash with variables available to path processing
+  # @option env [Hash] :content_variables
+  #   A hash with variables available to content processing
+  #
   # @see #dry_run For a way to see what would happen with materialize
   def materialize(in_path='.', env={}, &on_collision)
     in_path = File.expand_path(in_path)
