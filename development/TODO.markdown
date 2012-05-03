@@ -9,3 +9,4 @@
 * Figure how to detect an infinite processing loop
 * Add a .pdf.html processor
 * Add a .{png,svg,pdf}.dot processor
+* Implement remote templates (http://…/*.yaml, *.tgz) (via andrewvos)
