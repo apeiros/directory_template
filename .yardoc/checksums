@@ -1,4 +1,4 @@
-lib/directory_template.rb dd03a8ce6393770eb680ae70a783b411f307f31a
+lib/directory_template.rb 4a812eab1d169e5de7d77cecea3bb2b45c3dd9d9
 lib/directory_template/version.rb af43574b42af7007deb8e568a3ad9bd5bd58936f
 lib/directory_template/processor.rb ee929064f6ba97e71c1380780e1ccb9e4b6f1f1f
 lib/directory_template/blank_slate.rb a9bb06ef89475b49302bf57f19d145c5ec33ba82
