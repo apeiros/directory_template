@@ -191,7 +191,9 @@ class DirectoryTemplate
   # @see #dry_run For a way to see what would happen with materialize
   def materialize(in_path='.', env={}, &on_collision)
     in_path = File.expand_path(in_path)
-    create_directory(in_path) { "Creating root '#{in_path}'" }
+    create_directory(in_path) { |created|
+      created ? "Creating root '#{in_path}'" : "Root already exists '#{in_path}'"
+    }
 
     Dir.chdir(in_path) do
       if @directories.empty? then
@@ -200,7 +202,7 @@ class DirectoryTemplate
         info { "Creating directories" }
         @directories.each do |source_dir_path|
           target_dir_path = process_path(source_dir_path, env)
-          create_directory(target_dir_path) { "  #{target_dir_path}" }
+          create_directory(target_dir_path) { |created| "  #{target_dir_path}#{' (exists already)' unless created}" }
         end
       end
   
@@ -213,9 +215,9 @@ class DirectoryTemplate
           data              = process_content(target_file_path, content, env)
           if File.exist?(data.path) then
             if block_given? && yield(data) then
-              create_file(data.path, data.content) { "  #{data.path} (overwrite)" }
+              create_file(data.path, data.content) { "  #{data.path} (exists already, overwriting)" }
             else
-              info { "  #{data.path} (exists already)" }
+              info { "  #{data.path} (exists already, keeping)" }
             end
           else
             create_file(data.path, data.content) { "  #{data.path} (new)" }
@@ -253,8 +255,8 @@ class DirectoryTemplate
   #
   # @note The mode param is currently unused.
   def create_directory(path, mode=0755, &message)
+    info(!File.exists?(path), &message)
     unless File.exist?(path) then
-      info(&message)
       FileUtils.mkdir_p(path) unless @dry_run
     end
   end
@@ -264,9 +266,9 @@ class DirectoryTemplate
   #
   # @note The mode param is currently unused.
   def create_file(path, content="", mode=0644, &message)
-    info(&message)
+    info(!File.exists?(path), &message)
     if @dry_run then
-      info { "  Content:\n#{content.gsub(/^/, '    ')}" }
+      debug { "  Content:#{content.empty? ? ' (empty)' : "\n"+content.gsub(/^/, '    ') }" }
     else
       File.open(path, 'wb:binary') do |fh|
         fh.write(content)
@@ -287,15 +289,15 @@ class DirectoryTemplate
   # @private
   # Emit an info string (the return value of the block). Will not be emitted if
   # DirectoryTemplate#silent is true
-  def info
-    @out.puts yield unless @silent
+  def info(*args)
+    @out.puts yield(*args) unless @silent
   end
 
   # @private
   # Emit a debug string (the return value of the block). Will only be emitted if
   # DirectoryTemplate#debug is true
-  def debug
-    @out.puts yield if @verbose
+  def debug(*args)
+    @out.puts yield(*args) if @verbose
   end
 
   # @private
