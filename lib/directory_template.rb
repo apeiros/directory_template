@@ -62,7 +62,7 @@ class DirectoryTemplate
       {:directories => directories, :files => filemap}
     }
 
-    new(data, options.merge(:source => template_path))
+    new(data, {:source => template_path}.merge(options))
   end
 
   # @private
@@ -93,7 +93,7 @@ class DirectoryTemplate
     dirs, files = convert_recursive_structure(hash)
     data        = {:directories => dirs, :files => files}
 
-    new(data, options)
+    new(data, {:source => "(hash:#{caller(1,1).first})"}.merge(options))
   end
 
   # Create a DirectoryTemplate from a YAML file.
@@ -101,7 +101,7 @@ class DirectoryTemplate
   # an empty directory. Leaf-strings are considered to be the content of a file. Use nil
   # to indicate an empty file.
   def self.yaml_file(path, options={})
-    from_hash(YAML.load_file(path), options.merge(:source => template_path))
+    from_hash(YAML.load_file(path), {:source => template_path}.merge(options))
   end
 
   # Meta information can be used by processors. There's no requirements on them, except
