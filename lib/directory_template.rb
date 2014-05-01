@@ -89,7 +89,7 @@ class DirectoryTemplate
   # The hash should just be a recursive hash of strings. Use an empty hash to indicate
   # an empty directory. Leaf-strings are considered to be the content of a file. Use nil
   # to indicate an empty file.
-  def self.from_hash(hash, options=nil)
+  def self.from_hash(hash, options={})
     dirs, files = convert_recursive_structure(hash)
     data        = {:directories => dirs, :files => files}
 
