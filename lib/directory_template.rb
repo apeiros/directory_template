@@ -53,7 +53,7 @@ class DirectoryTemplate
 
   # Create a DirectoryTemplate from an existing directory structure.
   def self.directory(template_path, options={})
-    data    = Dir.chdir(template_path) {
+    data = Dir.chdir(template_path) {
       paths   =  Dir['**/{*,.*}']
       paths  -= paths.grep(/(?:^|\/)\.\.?$/)
       directories, files = paths.sort.partition { |path| File.directory?(path) }
