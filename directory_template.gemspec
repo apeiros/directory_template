@@ -3,6 +3,7 @@
 Gem::Specification.new do |s|
   s.name                      = "directory_template"
   s.version                   = "1.0.2"
+  s.license                   = 'BSD 2-Clause'
   s.authors                   = "Stefan Rusterholz"
   s.homepage                  = "https://github.com/apeiros/directory_template"
   s.description               = <<-DESCRIPTION.gsub(/^    /, '').chomp
@@ -40,8 +41,7 @@ Gem::Specification.new do |s|
     ]
 
   if File.directory?('bin') then
-    executables = Dir.chdir('bin') { Dir.glob('**/*').select { |f| File.executable?(f) } }
-    s.executables = executables unless executables.empty?
+    s.executables = Dir.chdir('bin') { Dir.glob('**/*').select { |f| File.executable?(f) } }
   end
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1")
