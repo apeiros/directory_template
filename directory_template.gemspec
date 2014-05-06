@@ -5,7 +5,9 @@ Gem::Specification.new do |s|
   s.version                   = "1.0.2"
   s.license                   = 'BSD 2-Clause'
   s.authors                   = "Stefan Rusterholz"
+  s.email                     = "stefan.rusterholz@gmail.com"
   s.homepage                  = "https://github.com/apeiros/directory_template"
+
   s.description               = <<-DESCRIPTION.gsub(/^    /, '').chomp
     DirectoryTemplate is a library which lets you generate directory structures and files
     from a template structure. The template structure can be a real directory structure on
@@ -25,7 +27,6 @@ Gem::Specification.new do |s|
     Lets you generate directory structures from a template, optionally processing paths
     (variables in the path) and contents (e.g., render ERB templates).
   SUMMARY
-  s.email                     = "stefan.rusterholz@gmail.com"
 
   s.files                     =
     Dir['bin/**/*'] +
