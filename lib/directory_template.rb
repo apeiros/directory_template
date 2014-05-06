@@ -192,12 +192,13 @@ class DirectoryTemplate
   #
   # @see #dry_run For a way to see what would happen with materialize
   def materialize(in_path='.', env={}, &on_collision)
+    @output_indent = 0
     in_path = File.expand_path(in_path)
     create_directory(in_path) { |created|
       created ? "Creating root '#{in_path}'" : "Root already exists '#{in_path}'"
     }
 
-    Dir.chdir(in_path) do
+    change_directory(in_path) do
       if @directories.empty? then
         info { "No directories to create" }
       else
@@ -229,6 +230,18 @@ class DirectoryTemplate
     end
 
     self
+  end
+
+  def change_directory(dir)
+    info { "In #{dir}"}
+    @output_indent += 1
+    if @dry_run
+      yield
+    else
+      Dir.chdir(dir) do yield end
+    end
+  ensure
+    @output_indent -= 1
   end
 
   # @private
