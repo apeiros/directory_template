@@ -159,7 +159,7 @@ class DirectoryTemplate
     @out                  = options.delete(:out)
     @processors           = options.delete(:processors)
     @path_processor       = options.delete(:path_processor)
-    @dry_run              = false
+    @dry_run              = options.delete(:dry_run) { false }
     raise ArgumentError, "Unknown options: #{options.keys.join(', ')}" unless options.empty?
   end
 
@@ -167,10 +167,12 @@ class DirectoryTemplate
   # info messages. It additionally prints an info message, containing the file content
   # of files that would be created.
   def dry_run(in_path='.', env={}, &on_collision)
-    @dry_run = true
+    @output_indent = 0
+    old_dry_run = @dry_run
+    @dry_run    = true
     materialize(in_path, env, &on_collision)
   ensure
-    @dry_run = false
+    @dry_run = old_dry_run
   end
 
   # Creates all the directories and files from the template in the given path.
@@ -290,14 +292,18 @@ class DirectoryTemplate
   # Emit an info string (the return value of the block). Will not be emitted if
   # DirectoryTemplate#silent is true
   def info(*args)
-    @out.puts yield(*args) unless @silent
+    @out.puts indent_output+yield(*args) unless @silent
   end
 
   # @private
   # Emit a debug string (the return value of the block). Will only be emitted if
   # DirectoryTemplate#debug is true
   def debug(*args)
-    @out.puts yield(*args) if @verbose
+    @out.puts indent_output+yield(*args) if @verbose
+  end
+
+  def indent_output
+    "  "*@output_indent
   end
 
   # @private
