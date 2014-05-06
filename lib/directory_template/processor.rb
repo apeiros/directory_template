@@ -53,6 +53,8 @@ class DirectoryTemplate
     # The implementation of the processor. I.e., the block passed to ::new.
     attr_reader :execute
 
+    attr_reader :id
+
     # @param [Symbol] id
     #   A (in the set of Processors) unique id
     #
