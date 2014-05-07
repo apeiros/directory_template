@@ -138,12 +138,12 @@ class Module
 
   # @private
   # Preserve the original method
-  alias template_directory_blank_slate_method_added append_features
+  alias template_directory_blank_slate_append_features append_features
 
   # @private
   # Monkey patch to the append_features callback of Module, used to update the BlankSlate.
   def append_features(mod)
-    result = template_directory_blank_slate_method_added(mod)
+    result = template_directory_blank_slate_append_features(mod)
     return result if mod != Object
     instance_methods.each do |name|
       DirectoryTemplate::BlankSlate.hide(name)
