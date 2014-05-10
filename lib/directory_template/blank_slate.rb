@@ -35,8 +35,7 @@ class DirectoryTemplate
       $stderr   = StringIO.new
 
       methods = instance_methods.map(&:to_sym)
-      if methods.include?(name.to_sym) and
-        name !~ /^(__|instance_eval)/
+      if methods.include?(name.to_sym) && name !~ /^(__|instance_eval)/
         @hidden_methods ||= {}
         @hidden_methods[name.to_sym] = instance_method(name)
         undef_method name
