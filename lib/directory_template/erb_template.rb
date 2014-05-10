@@ -62,7 +62,7 @@ class DirectoryTemplate
       def initialize(delegate=nil, variables={}, on_error_name=nil, &on_error)
         @delegate = delegate
         @table    = (@delegate ? Hash.new { |h, k| @delegate.send(k) } : EmptyHash).merge(variables)
-        if !on_error && on_error_name then
+        if !on_error && on_error_name
           @on_error = self.class.const_get(on_error_name)
         else
           @on_error = on_error || Raiser
@@ -92,7 +92,7 @@ class DirectoryTemplate
       # Set or get the value associated with the key matching the method name.
       def method_missing(m, *args) # :nodoc:
         argn = args.length
-        if argn.zero? && @table.has_key?(m) then
+        if argn.zero? && @table.has_key?(m)
           @table[m]
         elsif argn == 1 && m.to_s =~ SetterPattern
           @table[m] = args.first
@@ -208,7 +208,7 @@ class DirectoryTemplate
       variables = options.delete(:variables) || {}
       delegate  = options.delete(:delegate)
       on_error  = options.delete(:on_error) || block
-      if on_error.is_a?(Symbol) then
+      if on_error.is_a?(Symbol)
         on_error_name = on_error
         on_error      = nil
       end

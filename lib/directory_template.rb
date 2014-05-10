@@ -194,7 +194,7 @@ class DirectoryTemplate
     }
 
     change_directory(in_path) do
-      if @directories.empty? then
+      if @directories.empty?
         info { "No directories to create" }
       else
         info { "Creating directories" }
@@ -204,15 +204,15 @@ class DirectoryTemplate
         end
       end
 
-      if @files.empty? then
+      if @files.empty?
         info { "No files to create" }
       else
         info { "Creating files" }
         @files.each do |source_file_path, content|
           target_file_path  = process_path(source_file_path, env)
           data              = process_content(target_file_path, content, env)
-          if File.exist?(data.path) then
-            if block_given? && yield(data) then
+          if File.exist?(data.path)
+            if block_given? && yield(data)
               create_file(data.path, data.content) { "  #{data.path} (exists already, overwriting)" }
             else
               info { "  #{data.path} (exists already, keeping)" }
@@ -267,7 +267,7 @@ class DirectoryTemplate
   # @note The mode param is currently unused.
   def create_directory(path, mode=0755, &message)
     info(!File.exists?(path), &message)
-    unless File.exist?(path) then
+    unless File.exist?(path)
       FileUtils.mkdir_p(path) unless @dry_run
     end
   end
@@ -278,7 +278,7 @@ class DirectoryTemplate
   # @note The mode param is currently unused.
   def create_file(path, content="", mode=0644, &message)
     info(!File.exists?(path), &message)
-    if @dry_run then
+    if @dry_run
       debug { "  Content:#{content.empty? ? " (empty)" : "\n" + content.gsub(/^/, "    ") }" }
     else
       File.open(path, "wb:binary") do |fh|
