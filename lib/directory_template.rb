@@ -68,7 +68,7 @@ class DirectoryTemplate
       new_stack = stack + [segment]
       path      = new_stack.join("/")
       case content
-        when String,nil
+        when String, nil
           files[path] = content || ""
         when Hash
           dirs << path
@@ -89,7 +89,7 @@ class DirectoryTemplate
     dirs, files = convert_recursive_structure(hash)
     data        = {:directories => dirs, :files => files}
 
-    new(data, {:source => "(hash:#{caller(1,1).first})"}.merge(options))
+    new(data, {:source => "(hash:#{caller(1, 1).first})"}.merge(options))
   end
 
   # Create a DirectoryTemplate from a YAML file.

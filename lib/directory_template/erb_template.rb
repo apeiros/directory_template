@@ -64,7 +64,7 @@ class DirectoryTemplate
       #
       def initialize(delegate=nil, variables={}, on_error_name=nil, &on_error)
         @delegate = delegate
-        @table    = (@delegate ? Hash.new { |h,k| @delegate.send(k) } : EmptyHash).merge(variables)
+        @table    = (@delegate ? Hash.new { |h, k| @delegate.send(k) } : EmptyHash).merge(variables)
         if !on_error && on_error_name then
           @on_error = self.class.const_get(on_error_name)
         else
@@ -112,7 +112,7 @@ class DirectoryTemplate
         sprintf "#<%s:0x%08x @delegate=%s %s>",
           self.class,
           __id__,
-          @table.map { |k,v| "#{k}=#{v.inspect}" }.join(", "),
+          @table.map { |k, v| "#{k}=#{v.inspect}" }.join(", "),
           @delegate ? "#<%s:0x%08x ...>" %  [@delegate.class, @delegate.object_id << 1] : "nil"
       end
     end
