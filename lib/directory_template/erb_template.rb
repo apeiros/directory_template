@@ -92,7 +92,7 @@ class DirectoryTemplate
       # Set or get the value associated with the key matching the method name.
       def method_missing(m, *args) # :nodoc:
         argn = args.length
-        if argn.zero? && @table.has_key?(m)
+        if argn.zero? && @table.key?(m)
           @table[m]
         elsif argn == 1 && m.to_s =~ SetterPattern
           @table[m] = args.first
