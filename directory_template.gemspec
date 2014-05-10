@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
     from a template structure. The template structure can be a real directory structure on
     the filesystem, or it can be stored in a yaml file. Take a look at the examples directory
     in the gem to get an idea, how a template can look.
-    
+
     When generating a new directory structure from a template, DirectoryTemplate will process
     the pathname of each directory and file using the DirectoryTemplate#path_processor.
     It will also process the contents of each file with all processors that apply to a given

@@ -203,7 +203,7 @@ class DirectoryTemplate
           create_directory(target_dir_path) { |created| "  #{target_dir_path}#{" (exists already)" unless created}" }
         end
       end
-  
+
       if @files.empty? then
         info { "No files to create" }
       else

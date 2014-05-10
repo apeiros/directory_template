@@ -62,7 +62,7 @@ class DirectoryTemplate
     #   If you provide a String, it is interpreted as a glob-like-pattern, e.g.
     #   '*.html.haml' will match any files whose suffix is '.html.haml'.
     #   See File::fnmatch for an extensive documentation of glob-patterns.
-    #   
+    #
     #   If you provide a Regexp, the filename is matched against that regexp.
     #
     #   If you provide a Proc (or anything that is converted to a proc), the proc gets
