@@ -2,7 +2,6 @@
 
 class DirectoryTemplate
   class Processor
-
     # The 
     Stop = Processor.register(
       :stop,

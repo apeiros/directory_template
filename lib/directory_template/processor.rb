@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class DirectoryTemplate
-
   # The definition of a processor
   #
   # Use {Processor.register} to register a processor. A registered processor is available
@@ -12,7 +11,6 @@ class DirectoryTemplate
   #
   # Take a look at {ProcessData} to see what data your processor gets and can work on.
   class Processor
-
     # A matcher-proc to never match
     Never = proc { |data| false }
 

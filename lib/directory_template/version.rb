@@ -7,7 +7,6 @@ rescue LoadError
 end
 
 class DirectoryTemplate
-
   # The version of DirectoryTemplate
   Version = Gem::Version.new("1.0.2")
 end

@@ -2,7 +2,6 @@
 
 class DirectoryTemplate
   class Processor
-
     # The standard processor for file- and directory-paths. It simply uses String#% style
     # keyword replacement. I.e., `%{key}` is replaced by the variable value passed with
     # :key.

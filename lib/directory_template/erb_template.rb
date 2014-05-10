@@ -4,7 +4,6 @@ require "erb"
 require "directory_template/blank_slate"
 
 class DirectoryTemplate
-
   # @author Stefan Rusterholz <stefan.rusterholz@gmail.com>
   #
   # A helper class for ERB. Allows constructs like the one in the examples to
@@ -15,7 +14,6 @@ class DirectoryTemplate
   #     tmpl.result(self, :name => 'world') # => 'Hello World!'
   #
   class ErbTemplate
-
     # @author Stefan Rusterholz <stefan.rusterholz@gmail.com>
     #
     # Variables is similar to OpenStruct, but slightly optimized for create once, use once
@@ -28,7 +26,6 @@ class DirectoryTemplate
     #   variables.x # => "Value of X"
     #
     class Variables < BlankSlate
-
       # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables::new or
       # DirectoryTemplate::ErbTemplate#result.
       # Raises the error further on.

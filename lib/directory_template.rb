@@ -15,7 +15,6 @@ require "directory_template/version"
 # * :stop: Stops the preprocessing chain, it's advised to add that to all files for
 #          future-proofness.
 class DirectoryTemplate
-
   # All registered processors
   Processors = []
 

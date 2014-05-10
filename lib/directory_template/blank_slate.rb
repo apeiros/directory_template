@@ -3,7 +3,6 @@
 require "stringio"
 
 class DirectoryTemplate
-
   # BlankSlate provides an abstract base class with no predefined
   # methods (except for <tt>\_\_send__</tt> and <tt>\_\_id__</tt>).
   # BlankSlate is useful as a base class when writing classes that
@@ -19,7 +18,6 @@ class DirectoryTemplate
   #
   # Modified by Stefan Rusterholz (stefan.rusterholz@gmail.com)
   class BlankSlate
-
     # Hide the method named +name+ in the BlankSlate class.  Don't
     # hide +instance_eval+ or any method beginning with "__".
     #
@@ -128,7 +126,6 @@ end
 # being exposed in the first place.
 #
 class Module
-
   # @private
   # Preserve the original method
   alias_method :template_directory_blank_slate_append_features, :append_features

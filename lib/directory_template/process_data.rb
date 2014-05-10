@@ -1,9 +1,7 @@
 class DirectoryTemplate
-
   # ProcessData is the value that gets passed to processors.
   # The processor must mutate it.
   class ProcessData
-
     # A reference to the DirectoryTemplate of which this file/directory is part of
     attr_reader :directory_template
 
