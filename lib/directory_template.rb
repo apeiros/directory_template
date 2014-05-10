@@ -256,9 +256,11 @@ class DirectoryTemplate
     data = ProcessData.new(self, path, content, env)
     catch(:stop_processing) {
       #p :process_content => path, :available => @processors.size, :processors => processors_for(data).tap { |x| x && x.size }
-      while processor = processor_for(data)
+      processor = processor_for(data)
+      while processor
         debug { "  -> Applying #{processor.name}" }
         processor.call(data)
+        processor = processor_for(data)
       end
     }
 
