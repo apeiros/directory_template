@@ -267,9 +267,7 @@ class DirectoryTemplate
   # @note The mode param is currently unused.
   def create_directory(path, mode=0755, &message)
     info(!File.exist?(path), &message)
-    unless File.exist?(path)
-      FileUtils.mkdir_p(path) unless @dry_run
-    end
+    FileUtils.mkdir_p(path) unless @dry_run || File.exist?(path)
   end
 
   # @private
