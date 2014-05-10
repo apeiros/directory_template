@@ -1,11 +1,7 @@
 # encoding: utf-8
 
-
-
 require "erb"
 require "directory_template/blank_slate"
-
-
 
 class DirectoryTemplate
 
@@ -130,7 +126,6 @@ class DirectoryTemplate
 
     # An UnboundMethod instance of instance_eval
     InstanceEvaler  = Object.instance_method(:instance_eval)
-
 
     # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables::new or DirectoryTemplate::ErbTemplate#result.
     # Raises the error further on.

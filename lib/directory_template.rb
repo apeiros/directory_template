@@ -1,13 +1,9 @@
 # encoding: utf-8
 
-
-
 require "fileutils"
 require "directory_template/process_data"
 require "directory_template/processor"
 require "directory_template/version"
-
-
 
 # @version  1.0.1
 # @author   Stefan Rusterholz <stefan.rusterholz@gmail.com>

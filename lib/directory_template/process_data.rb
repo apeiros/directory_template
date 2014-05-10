@@ -31,7 +31,6 @@ class DirectoryTemplate
     # Variables to be used for both, path- and filecontent preprocessing
     attr_reader :variables
 
-
     # A content of nil means this is a directory
     # @param [Hash] env
     #   A hash with additional information, used to parametrize and preprocess the template.

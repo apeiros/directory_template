@@ -1,10 +1,6 @@
 # encoding: utf-8
 
-
-
 require "stringio"
-
-
 
 class DirectoryTemplate
 
@@ -68,8 +64,6 @@ class DirectoryTemplate
     instance_methods.each { |m| hide(m) }
   end
 end
-
-
 
 # @private
 # Extensions to Object for DirectoryTemplate::BlankSlate.

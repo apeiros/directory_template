@@ -1,10 +1,6 @@
 # encoding: utf-8
 
-
-
 require "directory_template/erb_template"
-
-
 
 class DirectoryTemplate
   class Processor
