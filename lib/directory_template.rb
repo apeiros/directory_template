@@ -69,7 +69,7 @@ class DirectoryTemplate
   # Converts a recursive hash into a suitable data structure for DirectoryTemplate::new
   def self.convert_recursive_structure(current, stack=[], dirs=[], files={})
     current.each do |segment, content|
-      new_stack = stack+[segment]
+      new_stack = stack + [segment]
       path      = new_stack.join("/")
       case content
         when String,nil
@@ -285,7 +285,7 @@ class DirectoryTemplate
   def create_file(path, content="", mode=0644, &message)
     info(!File.exists?(path), &message)
     if @dry_run then
-      debug { "  Content:#{content.empty? ? " (empty)" : "\n"+content.gsub(/^/, "    ") }" }
+      debug { "  Content:#{content.empty? ? " (empty)" : "\n" + content.gsub(/^/, "    ") }" }
     else
       File.open(path, "wb:binary") do |fh|
         fh.write(content)
@@ -307,23 +307,23 @@ class DirectoryTemplate
   # Emit an info string (the return value of the block). Will not be emitted if
   # DirectoryTemplate#silent is true
   def info(*args)
-    @out.puts indent_output+yield(*args) unless @silent
+    @out.puts indent_output + yield(*args) unless @silent
   end
 
   # @private
   # Emit a debug string (the return value of the block). Will only be emitted if
   # DirectoryTemplate#debug is true
   def debug(*args)
-    @out.puts indent_output+yield(*args) if @verbose
+    @out.puts indent_output + yield(*args) if @verbose
   end
 
   def indent_output
-    "  "*@output_indent
+    "  " * @output_indent
   end
 
   # @private
   # See Object#inspect
   def inspect
-    sprintf "#<%s:0x%x source=%p>", self.class, object_id<<1, @source
+    sprintf "#<%s:0x%x source=%p>", self.class, object_id << 1, @source
   end
 end

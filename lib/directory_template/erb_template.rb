@@ -195,7 +195,7 @@ class DirectoryTemplate
       variables = Variables.new(nil, variables, on_error_name, &on_error)
       @erb.result(variables.__binding__)
     rescue NameError => e
-      raise NameError, e.message+" for #{self.inspect} with #{variables.inspect}", e.backtrace
+      raise NameError, e.message + " for #{self.inspect} with #{variables.inspect}", e.backtrace
     end
 
     # @param [Hash] options
@@ -224,7 +224,7 @@ class DirectoryTemplate
 
       @erb.result(variables.__binding__)
     rescue NameError => e
-      raise NameError, e.message+" for #{self.inspect} with #{variables.inspect}", e.backtrace
+      raise NameError, e.message + " for #{self.inspect} with #{variables.inspect}", e.backtrace
     end
 
     # @private
