@@ -82,7 +82,7 @@ end
 module Kernel
   class << self
     # Preserve the original method
-    alias template_directory_blank_slate_method_added method_added
+    alias_method :template_directory_blank_slate_method_added, :method_added
   end
 
   # @private
@@ -106,7 +106,7 @@ end
 class Object
   class << self
     # Preserve the original method
-    alias template_directory_blank_slate_method_added method_added
+    alias_method :template_directory_blank_slate_method_added, :method_added
   end
 
   # @private
@@ -138,7 +138,7 @@ class Module
 
   # @private
   # Preserve the original method
-  alias template_directory_blank_slate_append_features append_features
+  alias_method :template_directory_blank_slate_append_features, :append_features
 
   # @private
   # Monkey patch to the append_features callback of Module, used to update the BlankSlate.
