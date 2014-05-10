@@ -2,10 +2,10 @@
 
 
 
-require 'fileutils'
-require 'directory_template/process_data'
-require 'directory_template/processor'
-require 'directory_template/version'
+require "fileutils"
+require "directory_template/process_data"
+require "directory_template/processor"
+require "directory_template/version"
 
 
 
@@ -47,14 +47,14 @@ class DirectoryTemplate
     :out            => $stdout,
     :processors     => Processors,
     :path_processor => StandardPathProcessor,
-    :source         => '(unknown)',
+    :source         => "(unknown)",
     :meta           => {},
   }
 
   # Create a DirectoryTemplate from an existing directory structure.
   def self.directory(template_path, options={})
     data = Dir.chdir(template_path) {
-      paths   =  Dir['**/{*,.*}']
+      paths   =  Dir["**/{*,.*}"]
       paths  -= paths.grep(/(?:^|\/)\.\.?$/)
       directories, files = paths.sort.partition { |path| File.directory?(path) }
       filemap = Hash[files.map { |path| [path, File.read(path)] }]
@@ -70,10 +70,10 @@ class DirectoryTemplate
   def self.convert_recursive_structure(current, stack=[], dirs=[], files={})
     current.each do |segment, content|
       new_stack = stack+[segment]
-      path      = new_stack.join('/')
+      path      = new_stack.join("/")
       case content
         when String,nil
-          files[path] = content || ''
+          files[path] = content || ""
         when Hash
           dirs << path
           convert_recursive_structure(content, new_stack, dirs, files)
@@ -160,13 +160,13 @@ class DirectoryTemplate
     @processors           = options.delete(:processors)
     @path_processor       = options.delete(:path_processor)
     @dry_run              = options.delete(:dry_run) { false }
-    raise ArgumentError, "Unknown options: #{options.keys.join(', ')}" unless options.empty?
+    raise ArgumentError, "Unknown options: #{options.keys.join(", ")}" unless options.empty?
   end
 
   # Same as #materialize, but doesn't actually do anything, except print the debug and
   # info messages. It additionally prints an info message, containing the file content
   # of files that would be created.
-  def dry_run(in_path='.', env={}, &on_collision)
+  def dry_run(in_path=".", env={}, &on_collision)
     @output_indent = 0
     old_dry_run = @dry_run
     @dry_run    = true
@@ -191,7 +191,7 @@ class DirectoryTemplate
   #   A hash with variables available to content processing
   #
   # @see #dry_run For a way to see what would happen with materialize
-  def materialize(in_path='.', env={}, &on_collision)
+  def materialize(in_path=".", env={}, &on_collision)
     @output_indent = 0
     in_path = File.expand_path(in_path)
     create_directory(in_path) { |created|
@@ -205,7 +205,7 @@ class DirectoryTemplate
         info { "Creating directories" }
         @directories.each do |source_dir_path|
           target_dir_path = process_path(source_dir_path, env)
-          create_directory(target_dir_path) { |created| "  #{target_dir_path}#{' (exists already)' unless created}" }
+          create_directory(target_dir_path) { |created| "  #{target_dir_path}#{" (exists already)" unless created}" }
         end
       end
   
@@ -283,9 +283,9 @@ class DirectoryTemplate
   def create_file(path, content="", mode=0644, &message)
     info(!File.exists?(path), &message)
     if @dry_run then
-      debug { "  Content:#{content.empty? ? ' (empty)' : "\n"+content.gsub(/^/, '    ') }" }
+      debug { "  Content:#{content.empty? ? " (empty)" : "\n"+content.gsub(/^/, "    ") }" }
     else
-      File.open(path, 'wb:binary') do |fh|
+      File.open(path, "wb:binary") do |fh|
         fh.write(content)
       end
     end

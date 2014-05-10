@@ -3,12 +3,12 @@
 Gem::Specification.new do |s|
   s.name                      = "directory_template"
   s.version                   = "1.0.2"
-  s.license                   = 'BSD 2-Clause'
+  s.license                   = "BSD 2-Clause"
   s.authors                   = "Stefan Rusterholz"
   s.email                     = "stefan.rusterholz@gmail.com"
   s.homepage                  = "https://github.com/apeiros/directory_template"
 
-  s.description               = <<-DESCRIPTION.gsub(/^    /, '').chomp
+  s.description               = <<-DESCRIPTION.gsub(/^    /, "").chomp
     DirectoryTemplate is a library which lets you generate directory structures and files
     from a template structure. The template structure can be a real directory structure on
     the filesystem, or it can be stored in a yaml file. Take a look at the examples directory
@@ -23,26 +23,26 @@ Gem::Specification.new do |s|
     html).
     You can use the existing processors or define your own ones.
   DESCRIPTION
-  s.summary                   = <<-SUMMARY.gsub(/^    /, '').chomp
+  s.summary                   = <<-SUMMARY.gsub(/^    /, "").chomp
     Lets you generate directory structures from a template, optionally processing paths
     (variables in the path) and contents (e.g., render ERB templates).
   SUMMARY
 
   s.files                     =
-    Dir['bin/**/*'] +
-    Dir['lib/**/*'] +
-    Dir['rake/**/*'] +
-    Dir['examples/**/*'] +
-    Dir['documentation/**/*'] +
-    Dir['test/**/*'] +
-    Dir['*.gemspec'] +
+    Dir["bin/**/*"] +
+    Dir["lib/**/*"] +
+    Dir["rake/**/*"] +
+    Dir["examples/**/*"] +
+    Dir["documentation/**/*"] +
+    Dir["test/**/*"] +
+    Dir["*.gemspec"] +
     %w[
       Rakefile
       README.markdown
     ]
 
-  if File.directory?('bin') then
-    s.executables = Dir.chdir('bin') { Dir.glob('**/*').select { |f| File.executable?(f) } }
+  if File.directory?("bin") then
+    s.executables = Dir.chdir("bin") { Dir.glob("**/*").select { |f| File.executable?(f) } }
   end
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1")

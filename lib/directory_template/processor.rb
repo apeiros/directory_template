@@ -19,7 +19,7 @@ class DirectoryTemplate
     # Searches for all processors and registers them
     def self.register_all
       $LOAD_PATH.each do |path|
-        Dir.glob(File.join(path, 'directory_template', 'processor', '**', '*.rb')) do |processor|
+        Dir.glob(File.join(path, "directory_template", "processor", "**", "*.rb")) do |processor|
           require processor
         end
       end

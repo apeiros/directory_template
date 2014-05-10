@@ -2,8 +2,8 @@
 
 
 
-require 'erb'
-require 'directory_template/blank_slate'
+require "erb"
+require "directory_template/blank_slate"
 
 
 
@@ -116,7 +116,7 @@ class DirectoryTemplate
         sprintf "#<%s:0x%08x @delegate=%s %s>",
           self.class,
           __id__,
-          @table.map { |k,v| "#{k}=#{v.inspect}" }.join(', '),
+          @table.map { |k,v| "#{k}=#{v.inspect}" }.join(", "),
           @delegate ? "#<%s:0x%08x ...>" %  [@delegate.class, @delegate.object_id << 1] : "nil"
       end
     end
@@ -124,8 +124,8 @@ class DirectoryTemplate
     # Option defaults
     Opt = {
       :safe_level => nil,
-      :trim_mode  => '%<>',
-      :eoutvar    => '_erbout'
+      :trim_mode  => "%<>",
+      :eoutvar    => "_erbout"
     }
 
     # An UnboundMethod instance of instance_eval
