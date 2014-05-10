@@ -60,7 +60,7 @@ class DirectoryTemplate
     #
     # @see #directory?
     def file?
-      !!@content
+      @content ? true : false
     end
 
     # @return [Boolean]
