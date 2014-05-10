@@ -266,7 +266,7 @@ class DirectoryTemplate
   #
   # @note The mode param is currently unused.
   def create_directory(path, mode=0755, &message)
-    info(!File.exists?(path), &message)
+    info(!File.exist?(path), &message)
     unless File.exist?(path)
       FileUtils.mkdir_p(path) unless @dry_run
     end
@@ -277,7 +277,7 @@ class DirectoryTemplate
   #
   # @note The mode param is currently unused.
   def create_file(path, content="", mode=0644, &message)
-    info(!File.exists?(path), &message)
+    info(!File.exist?(path), &message)
     if @dry_run
       debug { "  Content:#{content.empty? ? " (empty)" : "\n" + content.gsub(/^/, "    ") }" }
     else
