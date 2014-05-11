@@ -77,7 +77,7 @@ class DirectoryTemplate
       end
     end
 
-    return dirs, files
+    [dirs, files]
   end
 
   # Create a DirectoryTemplate from a nested hash structure.
@@ -228,7 +228,7 @@ class DirectoryTemplate
   end
 
   def change_directory(dir)
-    info { "In #{dir}"}
+    info { "In #{dir}" }
     @output_indent += 1
     if @dry_run
       yield

@@ -12,7 +12,7 @@ class DirectoryTemplate
   # Take a look at {ProcessData} to see what data your processor gets and can work on.
   class Processor
     # A matcher-proc to never match
-    Never = proc { |data| false }
+    Never = proc { |_data| false }
 
     # Searches for all processors and registers them
     def self.register_all

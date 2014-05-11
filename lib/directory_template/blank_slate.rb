@@ -53,7 +53,7 @@ class DirectoryTemplate
     # @return [self]
     def self.reveal(name)
       hidden_method = find_hidden_method(name)
-      fail "Don't know how to reveal method '#{name}'" unless hidden_method
+      raise "Don't know how to reveal method '#{name}'" unless hidden_method
       define_method(name, hidden_method)
 
       self

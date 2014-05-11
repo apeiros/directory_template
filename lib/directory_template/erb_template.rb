@@ -61,7 +61,7 @@ class DirectoryTemplate
       #
       def initialize(delegate=nil, variables={}, on_error_name=nil, &on_error)
         @delegate = delegate
-        @table    = (@delegate ? Hash.new { |h, k| @delegate.send(k) } : EmptyHash).merge(variables)
+        @table    = (@delegate ? Hash.new { |_h, k| @delegate.send(k) } : EmptyHash).merge(variables)
         if !on_error && on_error_name
           @on_error = self.class.const_get(on_error_name)
         else
@@ -116,9 +116,9 @@ class DirectoryTemplate
 
     # Option defaults
     Opt = {
-      :safe_level => nil,
-      :trim_mode  => "%<>",
-      :eoutvar    => "_erbout"
+      safe_level: nil,
+      trim_mode:  "%<>",
+      eoutvar:    "_erbout",
     }
 
     # An UnboundMethod instance of instance_eval
@@ -127,7 +127,7 @@ class DirectoryTemplate
     # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables::new or DirectoryTemplate::ErbTemplate#result.
     # Raises the error further on.
     Raiser = proc { |e|
-      raise
+      raise e
     }
 
     # A proc for &on_error in DirectoryTemplate::ErbTemplate::Variables::new or DirectoryTemplate::ErbTemplate#result.
@@ -149,7 +149,7 @@ class DirectoryTemplate
     # @param [Hash] options
     #   See ErbTemplate::new for the options
     def self.file(path, options=nil)
-      options = options ? options.merge(:filename => path) : {:filename => path}
+      options = options ? options.merge(filename: path) : {filename: path}
 
       new(File.read(path), options)
     end
@@ -187,7 +187,7 @@ class DirectoryTemplate
       variables = Variables.new(nil, variables, on_error_name, &on_error)
       @erb.result(variables.__binding__)
     rescue NameError => e
-      raise NameError, e.message + " for #{self.inspect} with #{variables.inspect}", e.backtrace
+      raise NameError, e.message + " for #{inspect} with #{variables.inspect}", e.backtrace
     end
 
     # @param [Hash] options
@@ -216,7 +216,7 @@ class DirectoryTemplate
 
       @erb.result(variables.__binding__)
     rescue NameError => e
-      raise NameError, e.message + " for #{self.inspect} with #{variables.inspect}", e.backtrace
+      raise NameError, e.message + " for #{inspect} with #{variables.inspect}", e.backtrace
     end
 
     # @private
